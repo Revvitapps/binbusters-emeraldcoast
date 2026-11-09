@@ -2,6 +2,7 @@ import Link from "next/link";
 import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
 import Image from "next/image";
 import { Logo } from "@/components/logo";
+import { ReviewCarousel } from "@/components/review-carousel";
 
 const tel = `tel:${brand.phoneE164}`;
 
@@ -261,7 +262,6 @@ export function VeteranBadge() {
       <Star size={22} />
       <span>
         Veteran-owned
-        <small>20-year U.S. Air Force veteran</small>
       </span>
     </p>
   );
@@ -319,17 +319,7 @@ export function Reviews({ headingLevel = 2, limit = 6 }: { headingLevel?: 2 | 3;
             <strong>{reviewSummary.rating}</strong> on Google · {reviewSummary.count} reviews
           </p>
         </div>
-        <ul className="review-grid">
-          {reviews.slice(0, limit).map((r) => (
-            <li key={r.name}>
-              <figure>
-                <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
-                <blockquote>“{r.text}”</blockquote>
-                <figcaption>{r.name} · Google review</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <ReviewCarousel reviews={reviews.slice(0, limit)} />
         <div className="row">
           <a className="btn btn-ghost" href={brand.googleBusinessProfile} target="_blank" rel="noopener">
             Read all reviews on Google

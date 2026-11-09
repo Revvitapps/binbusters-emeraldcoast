@@ -3,6 +3,10 @@
 
 const env = (key: string) => process.env[key]?.trim() || undefined;
 
+// Live Google Business Profile (5.0, 15 reviews on 2026-11-09). Env vars override.
+const GBP_MAPS_URL = "https://maps.google.com/?cid=1746356444272120358";
+const GBP_REVIEW_URL = "https://g.page/r/CSbSDfjuTTwYEAE/review";
+
 export const siteUrl = (env("NEXT_PUBLIC_SITE_URL") ?? "https://binbusters-emeraldcoast.com").replace(/\/$/, "");
 
 export const brand = {
@@ -29,9 +33,9 @@ export const brand = {
   sameAs: [
     "https://www.facebook.com/profile.php?id=61574866272048",
     "https://www.instagram.com/jarrettcgordon/",
-    ...(env("NEXT_PUBLIC_BRAND_GBP_URL") ? [env("NEXT_PUBLIC_BRAND_GBP_URL") as string] : []),
+    env("NEXT_PUBLIC_BRAND_GBP_URL") ?? GBP_MAPS_URL,
   ],
-  googleBusinessProfile: env("NEXT_PUBLIC_BRAND_GBP_URL"),
+  googleBusinessProfile: env("NEXT_PUBLIC_BRAND_GBP_URL") ?? GBP_MAPS_URL,
   extraBinPrice: 10,
 };
 
@@ -278,7 +282,18 @@ export const serviceZips: Record<string, string[]> = {
 };
 
 export const reviewUrl =
-  env("NEXT_PUBLIC_GBP_REVIEW_URL") ?? "https://www.google.com/search?q=Bin+Busters+of+the+Emerald+Coast";
+  env("NEXT_PUBLIC_GBP_REVIEW_URL") ?? GBP_REVIEW_URL;
+
+// Real Google reviews, quoted verbatim (trimmed with …) from the Business Profile on 2026-11-09.
+export const reviews = [
+  { name: "Seth L.", text: "The owner/operator is very courteous and professional. The trash bins come out spotless and odor free every time. The prices are super reasonable…" },
+  { name: "Chris M.", text: "They wash both of my cans once a month and it has cut down majorly on the flies and the cans look great!" },
+  { name: "Chad S.", text: "They came right away to clean our trash bins… They’re like new again! The service was impeccable and friendly." },
+  { name: "Monica A.", text: "I love this service! My trash and recycle bin were cleaned and sanitized today for the first time… Thank you for the thorough job." },
+  { name: "Carl B.", text: "Always on time and does a great job. Communication and ease of payment is a plus." },
+  { name: "Jae B.", text: "They are professional, and conveniently come to your home or office — leaving your bins sparkling clean and disinfected." },
+];
+export const reviewSummary = { rating: "5.0", count: 15 };
 
 export const priceFor = (planId: string, bins: number) => {
   const p = plans.find((x) => x.id === planId);

@@ -1,5 +1,5 @@
 import { brand, benefits, faqs, plans } from "@/content/site";
-import { BookButton, CallButton, CtaBand, FaqList, Pricing, Steps, TownGrid } from "@/components/ui";
+import { BookButton, CallButton, CtaBand, FaqList, Pricing, Reviews, Steps, TownGrid, VeteranBadge, VeteranSection } from "@/components/ui";
 import { JsonLd, faqNode, pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { CalendarSync, CircleHelp, Home as HomeIcon, MapPin, Sparkles, Users, CalendarDays } from "lucide-react";
@@ -30,8 +30,8 @@ export default function Home() {
       <section className="hero">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Veteran-owned · Fort Walton Beach, Destin, Navarre & nearby</p>
-            <h1>Trash can cleaning on the Emerald Coast</h1>
+            <VeteranBadge />
+            <h1>Veteran-owned trash can cleaning on the Emerald Coast</h1>
             <p className="lede">
               We clean, sanitize and deodorize your trash and recycling bins right at the curb with 200° water.
               Plans start at $20 a month.
@@ -51,6 +51,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Reviews />
 
       <section className="section need" aria-labelledby="need-h">
         <div className="wrap">
@@ -78,6 +80,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <VeteranSection />
 
       <section className="section" aria-labelledby="why-h">
         <div className="wrap">
@@ -120,17 +124,6 @@ export default function Home() {
       </section>
       <Pricing />
       <TownGrid />
-
-      <section className="section" aria-labelledby="owner-h">
-        <div className="wrap narrow">
-          <h2 id="owner-h">Keeping the Emerald Coast clean</h2>
-          <p>
-            Living here, {brand.owner.name.split(" ")[0]} got tired of filthy, smelly trash cans in our hot, humid weather,
-            and knew his neighbors felt the same. After 20 years in the U.S. Air Force, he started this family-owned business
-            to make clean, fresh-smelling bins easy for everyone. <Link href="/about">Meet the owner</Link>.
-          </p>
-        </div>
-      </section>
 
       <FaqList items={faqs.slice(0, 6)} />
       <CtaBand />

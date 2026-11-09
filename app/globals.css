@@ -335,3 +335,57 @@ a.need svg, button.need svg { flex: none; width: 28px; height: 28px; color: var(
 .btn-ghost:hover { background: var(--black); color: #fff; border-color: var(--black); }
 .hero .btn-ghost, .cta-band .btn-ghost { color: #fff; border-color: #fff; background: transparent; }
 .hero .btn-ghost:hover, .cta-band .btn-ghost:hover { background: #fff; color: var(--black); }
+
+/* ---- Veteran-owned emphasis ---- */
+.vet-ribbon { background: var(--black); color: #fff; font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.02em; }
+.vet-ribbon .wrap { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 38px; text-align: center; }
+.vet-ribbon svg { color: var(--green); flex: none; }
+.vet-ribbon strong { text-transform: uppercase; font-weight: 800; letter-spacing: 0.06em; }
+.vet-ribbon-more { color: #d8d8d8; }
+.vet-badge { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 16px; padding: 10px 18px 10px 14px; border-radius: 14px; background: #fff; color: var(--black); font-family: var(--font-display); font-weight: 800; font-size: clamp(1.25rem, 2.4vw, 1.6rem); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.1; box-shadow: 0 0 0 3px var(--red), 0 8px 18px rgba(0, 0, 0, 0.25); }
+.vet-badge svg { color: var(--red); flex: none; }
+.vet-badge span { display: flex; flex-direction: column; }
+.vet-badge small { font-size: 0.55em; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
+.page-head .vet-badge { box-shadow: 0 0 0 3px var(--red); }
+
+.vet-section { background: var(--black); color: #e6e6e6; padding: 64px 0; position: relative; border-top: 8px solid var(--red); border-bottom: 8px solid var(--red); }
+.vet-section h2 { color: #fff; font-size: clamp(1.7rem, 3.6vw, 2.6rem); }
+.vet-section a { color: #7fdc8b; font-weight: 700; }
+.vet-kicker { display: inline-flex; align-items: center; gap: 8px; color: #7fdc8b; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1rem; }
+.vet-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+.vet-stats { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.vet-stats li { display: flex; align-items: baseline; gap: 14px; background: #1d1d1d; border-left: 6px solid var(--red); border-radius: 12px; padding: 14px 18px; }
+.vet-stats strong { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; min-width: 110px; }
+.vet-stats span { color: #d0d0d0; font-weight: 700; }
+.footer-vet { color: #fff; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Reviews */
+.reviews { background: var(--bg-alt); }
+.reviews-head { display: flex; justify-content: space-between; align-items: end; gap: 12px 24px; flex-wrap: wrap; }
+.rating { margin: 0 0 0.6em; font-size: 1.05rem; }
+.rating strong { font-family: var(--font-display); font-size: 1.4rem; margin: 0 4px; }
+.stars { color: #e8a100; letter-spacing: 2px; }
+.review-grid { list-style: none; padding: 0; margin: 20px 0 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.review-grid figure { margin: 0; height: 100%; background: #fff; border-radius: var(--radius); padding: 22px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); display: flex; flex-direction: column; gap: 10px; }
+.review-grid blockquote { margin: 0; font-size: 1.02rem; flex: 1; }
+.review-grid figcaption { font-weight: 800; font-family: var(--font-display); font-size: 0.92rem; }
+
+@media (max-width: 960px) {
+  .vet-grid { grid-template-columns: 1fr; gap: 28px; }
+  .review-grid { grid-template-columns: 1fr 1fr; }
+  .vet-ribbon-more { display: none; }
+}
+@media (max-width: 560px) {
+  .review-grid { grid-template-columns: 1fr; }
+  .vet-badge { font-size: 1.15rem; padding: 8px 14px 8px 10px; }
+  .vet-ribbon { font-size: 0.85rem; }
+}
+@media (max-width: 560px) {
+  .hero { padding-top: 12px; }
+  .hero-mascot img { width: 84px; }
+  .hero::before { top: 36px; height: 28px; }
+  .hero-grid { gap: 6px; }
+  .hero h1 { font-size: 1.65rem; }
+  .hero .vet-badge { margin-bottom: 10px; }
+  .vet-ribbon .wrap { min-height: 32px; }
+}

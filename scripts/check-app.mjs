@@ -51,7 +51,7 @@ try {
   const axeSrc = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 
   // 2. Layout, tab bar, a11y on every main route
-  const main = ["/", "/book", "/pricing", "/service-areas", "/service-areas/destin", "/vacation-rentals", "/neighborhoods", "/faq", "/about", "/contact", "/review"];
+  const main = ["/", "/book", "/pricing", "/service-areas", "/service-areas/destin", "/vacation-rentals", "/neighborhoods", "/military", "/faq", "/about", "/contact", "/review"];
   for (const [name, ctxOpts] of [
     ["phone", { ...devices["iPhone 13"] }],
     ["narrow", { viewport: { width: 360, height: 740 } }],

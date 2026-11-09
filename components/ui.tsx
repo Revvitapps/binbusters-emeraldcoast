@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { brand, faqs as allFaqs, plans, steps, towns, type Faq } from "@/content/site";
+import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
 import Image from "next/image";
 import { Logo } from "@/components/logo";
 
 const tel = `tel:${brand.phoneE164}`;
 
 export function Header() {
+  return (
+    <>
+      <VeteranRibbon />
+      <HeaderBar />
+    </>
+  );
+}
+
+function HeaderBar() {
   return (
     <header className="site-header">
       <div className="wrap header-row">
@@ -176,7 +185,7 @@ export function Footer() {
           <p className="footer-logo">
             <Logo height={56} />
           </p>
-          <p>Veteran-owned, family-run trash can cleaning on Florida's Emerald Coast.</p>
+          <p><strong className="footer-vet">★ Veteran-owned &amp; operated</strong><br />Family-run trash can cleaning on Florida's Emerald Coast, owned by a 20-year U.S. Air Force veteran.</p>
           <p>
             <a href={tel}>{brand.phone}</a>
             <br />
@@ -200,6 +209,7 @@ export function Footer() {
             <li><Link href="/pricing">Pricing</Link></li>
             <li><Link href="/vacation-rentals">Vacation rentals</Link></li>
             <li><Link href="/neighborhoods">Neighborhoods & HOAs</Link></li>
+            <li><Link href="/military">Military & PCS</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
             <li><Link href="/about">About</Link></li>
             <li><Link href="/contact">Contact</Link></li>
@@ -217,5 +227,118 @@ export function Footer() {
       </div>
       <p className="wrap copyright">© {new Date().getFullYear()} {brand.name}. All rights reserved.</p>
     </footer>
+  );
+}
+
+function Star({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7.3L12 17.8 5.8 21.5l1.6-7.3L2 9.5l7.1-.6z" />
+    </svg>
+  );
+}
+
+/** Thin ribbon above the header on every page. */
+export function VeteranRibbon() {
+  return (
+    <div className="vet-ribbon">
+      <div className="wrap">
+        <Star size={16} />
+        <span>
+          <strong>Veteran-owned &amp; operated</strong>
+          <span className="vet-ribbon-more"> · 20 years U.S. Air Force · Proud neighbors of Eglin AFB &amp; Hurlburt Field</span>
+        </span>
+        <Star size={16} />
+      </div>
+    </div>
+  );
+}
+
+/** Large hero badge. */
+export function VeteranBadge() {
+  return (
+    <p className="vet-badge">
+      <Star size={22} />
+      <span>
+        Veteran-owned
+        <small>20-year U.S. Air Force veteran</small>
+      </span>
+    </p>
+  );
+}
+
+/** "Served 20 years" section for the home and town pages. */
+export function VeteranSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
+  const H = `h${headingLevel}` as "h2" | "h3";
+  return (
+    <section className="vet-section" aria-labelledby="vet-h">
+      <div className="wrap vet-grid">
+        <div>
+          <p className="vet-kicker">
+            <Star size={18} /> Veteran-owned &amp; operated
+          </p>
+          <H id="vet-h">He served 20 years. Now he serves the Emerald Coast.</H>
+          <p>
+            {brand.owner.name} spent two decades in the U.S. Air Force before starting {brand.shortName} here at home. The same
+            standards come to your curb: we show up when we say we will, do the job right, and treat your home like our own. <Link href="/about">Meet {brand.owner.name.split(" ")[0]}</Link>.
+          </p>
+          <p>
+            Military families: we work around duty schedules, deployments and PCS moves. You never need to be home.{" "}
+            <Link href="/military">Military &amp; PCS cleanings</Link>.
+          </p>
+        </div>
+        <ul className="vet-stats">
+          <li>
+            <strong>20</strong>
+            <span>years U.S. Air Force</span>
+          </li>
+          <li>
+            <strong>100%</strong>
+            <span>family-owned and local</span>
+          </li>
+          <li>
+            <strong>200°F</strong>
+            <span>water on every clean</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** Real Google reviews, front and centre on the home page. */
+export function Reviews({ headingLevel = 2, limit = 6 }: { headingLevel?: 2 | 3; limit?: number }) {
+  const H = `h${headingLevel}` as "h2" | "h3";
+  return (
+    <section className="section reviews" aria-labelledby="reviews-h">
+      <div className="wrap">
+        <div className="reviews-head">
+          <H id="reviews-h">What our customers say</H>
+          <p className="rating">
+            <span className="stars" aria-hidden="true">★★★★★</span>
+            <strong>{reviewSummary.rating}</strong> on Google · {reviewSummary.count} reviews
+          </p>
+        </div>
+        <ul className="review-grid">
+          {reviews.slice(0, limit).map((r) => (
+            <li key={r.name}>
+              <figure>
+                <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
+                <blockquote>“{r.text}”</blockquote>
+                <figcaption>{r.name} · Google review</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <div className="row">
+          <a className="btn btn-ghost" href={brand.googleBusinessProfile} target="_blank" rel="noopener">
+            Read all reviews on Google
+          </a>
+          <a className="link-btn" href={reviewUrl} target="_blank" rel="noopener">
+            Already a customer? Leave a review
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/book", 0.9),
     page("/vacation-rentals", 0.8),
     page("/neighborhoods", 0.7),
+    page("/military", 0.7),
     page("/service-areas", 0.8),
     ...towns.map((t) => page(`/service-areas/${t.slug}`, 0.8)),
     page("/faq", 0.7),

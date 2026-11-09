@@ -18,11 +18,11 @@ const qs = [
   },
   {
     q: "How much is it for a rental?",
-    a: `Same prices as any home: $${plans[0].price} a month, $${plans[1].price} every 12 weeks, or $${plans[2].price} one time, with $${brand.extraBinPrice} per extra bin.`,
+    a: `For one rental, the same prices as any home: $${plans[0].price} a month, $${plans[1].price} every 12 weeks, or $${plans[2].price} one time, with $${brand.extraBinPrice} per extra bin. Own several? Reach out for pricing.`,
   },
   {
     q: "I manage several properties. Can you handle all of them?",
-    a: "Yes. Send us the list and we will set up each address on our routes. Call or use the form on this page.",
+    a: "Yes. Send us the list and reach out for multi-property pricing. Call or use the form on this page.",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function Rentals() {
           <ul className="checks">
             <li>No need to be on site</li>
             <li>Monthly plans from ${plans[0].price}</li>
-            <li>Same prices as any home</li>
+            <li>Several properties? Reach out for pricing</li>
           </ul>
         </div>
       </section>

@@ -40,7 +40,7 @@ export default function Neighborhoods() {
         <div className="wrap split">
           <div>
             <h2>Bring your neighborhood</h2>
-            <p>Tell us the neighborhood and roughly how many homes are interested. We'll call you to set up the route.</p>
+            <p>Tell us the neighborhood and roughly how many homes are interested. We'll call you with group pricing and set up the route.</p>
             <p>
               Ready for your own home now? <Link href="/book">Book online</Link>.
             </p>

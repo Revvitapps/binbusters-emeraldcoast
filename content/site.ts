@@ -257,3 +257,25 @@ export const faqs: Faq[] = [
 ];
 
 export const lastUpdated = "2026-11-09";
+
+/** ZIP codes that cover our towns. A ZIP not listed here is not a "no": the funnel asks people to call. */
+export const serviceZips: Record<string, string[]> = {
+  "32547": ["fort-walton-beach", "wright"],
+  "32548": ["fort-walton-beach", "ocean-city"],
+  "32541": ["destin"],
+  "32540": ["destin"],
+  "32566": ["navarre"],
+  "32578": ["niceville", "bluewater-bay"],
+  "32569": ["mary-esther", "wynnehaven-beach"],
+  "32579": ["shalimar"],
+  "32580": ["valparaiso"],
+  "32550": ["miramar-beach", "sandestin"],
+};
+
+export const reviewUrl =
+  env("NEXT_PUBLIC_GBP_REVIEW_URL") ?? "https://www.google.com/search?q=Bin+Busters+of+the+Emerald+Coast";
+
+export const priceFor = (planId: string, bins: number) => {
+  const p = plans.find((x) => x.id === planId);
+  return p ? p.price + Math.max(0, bins - 1) * brand.extraBinPrice : 0;
+};

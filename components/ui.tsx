@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { brand, faqs as allFaqs, plans, steps, towns, type Faq } from "@/content/site";
+import { LogoMark } from "@/components/logo";
 
 const tel = `tel:${brand.phoneE164}`;
 
@@ -30,22 +31,12 @@ export function Header() {
   );
 }
 
-export function LogoMark() {
-  return (
-    <svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <rect width="64" height="64" rx="14" fill="var(--emerald)" />
-      <path d="M18 22h28l-3 30a3 3 0 0 1-3 3H24a3 3 0 0 1-3-3z" fill="#fff" />
-      <rect x="15" y="16" width="34" height="6" rx="2" fill="#fff" />
-      <path d="M27 31c3 3 7 3 10 0M27 40c3 3 7 3 10 0" stroke="var(--emerald)" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
-  );
-}
 
-export function BookButton({ small, label = "Book a cleaning" }: { small?: boolean; label?: string }) {
+export function BookButton({ small, label = "Book a cleaning", href = "/book" }: { small?: boolean; label?: string; href?: string }) {
   return (
-    <a href={brand.bookingUrl} className={small ? "btn btn-sm" : "btn"} rel="noopener" target="_blank" data-event="book_click">
+    <Link href={href} className={small ? "btn btn-sm" : "btn"} data-event="book_start">
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -75,7 +66,7 @@ export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
               </p>
               <p>{p.summary}</p>
               <p className="muted">+${brand.extraBinPrice} each additional bin</p>
-              <BookButton label={`Book ${p.name.toLowerCase()}`} />
+              <BookButton label={`Book ${p.name.toLowerCase()}`} href={`/book?plan=${p.id}`} />
             </div>
           ))}
         </div>
@@ -202,7 +193,10 @@ export function Footer() {
         <div>
           <p className="footer-h">Company</p>
           <ul>
+            <li><Link href="/book">Book online</Link></li>
             <li><Link href="/pricing">Pricing</Link></li>
+            <li><Link href="/vacation-rentals">Vacation rentals</Link></li>
+            <li><Link href="/neighborhoods">Neighborhoods & HOAs</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
             <li><Link href="/about">About</Link></li>
             <li><Link href="/contact">Contact</Link></li>

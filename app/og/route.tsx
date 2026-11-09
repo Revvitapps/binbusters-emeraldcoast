@@ -14,7 +14,7 @@ export function GET(req: Request) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "linear-gradient(135deg, #0b6e4f 0%, #0f2a3d 100%)",
+          background: "linear-gradient(135deg, #111111 0%, #2a0a0d 100%)",
           color: "#fff",
           fontFamily: "sans-serif",
         }}

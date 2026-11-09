@@ -243,3 +243,95 @@ a.need svg, button.need svg { flex: none; width: 28px; height: 28px; color: var(
   .hero .checks { display: none; }
 }
 .tab { height: calc(var(--tabbar) - 3px); }
+
+/* ---- Brand rebuild (2026-11-09): real logo, mascot, illustrations and photos from the original site ---- */
+.logo img { display: block; height: 52px; width: auto; }
+.site-header { border-bottom: 0; box-shadow: 0 2px 0 var(--black), 0 6px 0 var(--red); }
+
+/* Primary buttons use the original site's green. Black text keeps 6.9:1 contrast (white on #45B153 is only 2.7:1). */
+.btn { background: var(--green); border-color: var(--green); color: var(--black); box-shadow: 0 3px 0 #2f7d3a; }
+.btn:hover { background: #3a9c47; border-color: #3a9c47; color: var(--black); }
+.btn-ghost { box-shadow: none; }
+
+/* Hero: the red halftone band and black stripe from the original header, with the mascot front and centre */
+.hero { background: var(--red) url("/brand/halftone.jpg") center / cover no-repeat; padding: 48px 0 0; }
+.hero::before { content: ""; position: absolute; left: 0; right: 0; top: 46%; height: 64px; background: var(--black); }
+.hero::after { height: 12px; background: var(--black); }
+.hero .wrap { position: relative; z-index: 1; }
+.hero-grid { grid-template-columns: 1.3fr 1fr; padding-bottom: 56px; }
+.hero-copy { background: rgba(17, 17, 17, 0.82); border-radius: 22px; padding: clamp(20px, 3vw, 36px); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25); }
+.hero .eyebrow { color: #7fdc8b; }
+.hero .lede { color: #e9e9e9; }
+.hero-mascot { display: grid; place-items: center; }
+.hero-mascot img { width: min(340px, 100%); height: auto; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.35)); animation: bob 4s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+
+/* How it works: the original illustrations with arrows between them */
+.steps { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.steps li { text-align: center; position: relative; border: 0; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.steps li::before { position: absolute; top: 16px; left: 16px; margin: 0; }
+.steps li img { display: block; margin: 0 auto 12px; height: 150px; width: auto; }
+.steps li:not(:last-child)::after { content: ""; position: absolute; right: -26px; top: 80px; width: 24px; height: 24px; background: url("/brand/arrow.png") center / contain no-repeat; z-index: 1; }
+
+/* Before / after and the trailer */
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ba figure { margin: 0; position: relative; }
+.ba img { width: 100%; height: auto; display: block; }
+.ba figcaption { position: absolute; left: 12px; bottom: 14px; background: var(--black); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; }
+.ba figure:last-child figcaption { background: var(--green); color: var(--black); }
+.trailer img { width: 100%; height: auto; display: block; }
+.trailer p { text-align: center; margin-top: 8px; }
+
+/* Pricing on the original's soap-bubble backdrop */
+#pricing-h { position: relative; }
+.section:has(#pricing-h) { background:
+  radial-gradient(circle at 6% 85%, rgba(160, 200, 255, 0.22) 0 38px, transparent 39px),
+  radial-gradient(circle at 12% 70%, rgba(200, 170, 255, 0.18) 0 22px, transparent 23px),
+  radial-gradient(circle at 92% 20%, rgba(160, 200, 255, 0.2) 0 46px, transparent 47px),
+  radial-gradient(circle at 86% 88%, rgba(255, 190, 220, 0.18) 0 30px, transparent 31px),
+  #fff; }
+.plan { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07); }
+
+/* CTA band with the mascot */
+.cta-band { background: var(--red) url("/brand/halftone.jpg") center / cover no-repeat; text-align: left; border-top: 12px solid var(--black); }
+.cta-grid { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; max-width: 900px; }
+.cta-band .row { justify-content: flex-start; }
+.cta-band .btn { background: var(--green); border-color: var(--green); color: var(--black); }
+.cta-mascot { width: 180px; height: auto; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.3)); }
+
+/* Footer logo sits on a white badge so the black wordmark reads on black */
+.footer-logo { display: inline-block; background: #fff; border-radius: 14px; padding: 10px 14px; }
+.footer-logo img { display: block; height: 56px; width: auto; }
+
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; padding-bottom: 40px; }
+  .hero-mascot { order: -1; }
+  .hero-mascot img { width: 170px; }
+  .hero::before { top: 90px; height: 48px; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .steps li:not(:last-child)::after { right: 50%; top: auto; bottom: -26px; transform: translateX(50%) rotate(90deg); }
+}
+@media (max-width: 560px) {
+  .logo img { height: 42px; }
+  .hero { padding-top: 20px; }
+  .hero-mascot img { width: 140px; }
+  .hero::before { top: 64px; height: 40px; }
+  .cta-grid { grid-template-columns: 1fr; text-align: center; }
+  .cta-band .row { justify-content: center; }
+  .cta-mascot { width: 120px; margin: 0 auto; }
+}
+@media (max-width: 560px) {
+  .hero-grid { gap: 10px; padding-bottom: 28px; }
+  .hero-mascot img { width: 112px; }
+  .hero::before { top: 50px; height: 34px; }
+  .hero .eyebrow { display: none; }
+  .hero .lede { font-size: 1.02rem; margin-bottom: 0.4em; }
+  .hero-copy { padding: 18px; }
+  .hero h1 { font-size: 1.85rem; }
+}
+.btn-ghost { background: transparent; color: var(--black); border-color: var(--black); }
+.btn-ghost:hover { background: var(--black); color: #fff; border-color: var(--black); }
+.hero .btn-ghost, .cta-band .btn-ghost { color: #fff; border-color: #fff; background: transparent; }
+.hero .btn-ghost:hover, .cta-band .btn-ghost:hover { background: #fff; color: var(--black); }

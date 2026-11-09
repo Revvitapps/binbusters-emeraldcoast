@@ -4,6 +4,8 @@ import { JsonLd, faqNode, pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { CalendarSync, CircleHelp, Home as HomeIcon, MapPin, Sparkles, Users, CalendarDays } from "lucide-react";
 import { AskButton } from "@/components/ask";
+import { Mascot } from "@/components/logo";
+import Image from "next/image";
 
 const needs = [
   { label: "Monthly cleaning", sub: `$${plans[0].price}/month, 1 bin`, href: "/book?plan=monthly", Icon: CalendarSync },
@@ -27,7 +29,7 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="wrap hero-grid">
-          <div>
+          <div className="hero-copy">
             <p className="eyebrow">Veteran-owned · Fort Walton Beach, Destin, Navarre & nearby</p>
             <h1>Trash can cleaning on the Emerald Coast</h1>
             <p className="lede">
@@ -44,12 +46,11 @@ export default function Home() {
               <li>Monthly, quarterly or one-time</li>
             </ul>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <HeroArt />
+          <div className="hero-mascot">
+            <Mascot priority />
           </div>
         </div>
       </section>
-
 
       <section className="section need" aria-labelledby="need-h">
         <div className="wrap">
@@ -94,6 +95,29 @@ export default function Home() {
       </section>
 
       <Steps />
+
+      <section className="section proof" aria-labelledby="proof-h">
+        <div className="wrap proof-grid">
+          <div>
+            <h2 id="proof-h">See the difference</h2>
+            <p className="lede">A real bin before and after a Bin Busters clean.</p>
+            <div className="ba">
+              <figure>
+                <Image src="/brand/before.png" alt="Inside of a dirty trash can full of grime and litter" width={300} height={285} />
+                <figcaption>Before</figcaption>
+              </figure>
+              <figure>
+                <Image src="/brand/after.png" alt="Inside of the same trash can after cleaning, bright and clean" width={300} height={281} />
+                <figcaption>After</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div className="trailer">
+            <Image src="/brand/trailer.png" alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay" width={639} height={501} />
+            <p className="muted">Our trailer washes each bin right at your curb.</p>
+          </div>
+        </div>
+      </section>
       <Pricing />
       <TownGrid />
 
@@ -112,34 +136,5 @@ export default function Home() {
       <CtaBand />
       <JsonLd nodes={[faqNode(faqs.slice(0, 6), "/")]} />
     </>
-  );
-}
-
-function HeroArt() {
-  return (
-    <svg viewBox="0 0 400 320" width="400" height="320" role="presentation">
-      <defs>
-        <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#262626" />
-          <stop offset="1" stopColor="#151515" />
-        </linearGradient>
-      </defs>
-      <rect width="400" height="320" rx="24" fill="url(#sky)" />
-      <path d="M0 250 Q100 225 200 250 T400 250 V320 H0Z" fill="#bd1e2c" opacity=".15" />
-      <g transform="translate(130 70)">
-        <rect x="-8" y="0" width="156" height="22" rx="6" fill="#bd1e2c" />
-        <path d="M0 26h140l-12 170a10 10 0 0 1-10 9H22a10 10 0 0 1-10-9z" fill="#45b153" />
-        <path d="M40 60v110M70 60v110M100 60v110" stroke="#bd1e2c" strokeWidth="6" strokeLinecap="round" opacity=".35" />
-        <circle cx="22" cy="214" r="12" fill="#000" />
-        <circle cx="118" cy="214" r="12" fill="#000" />
-      </g>
-      <g fill="#111" stroke="#45b153" strokeWidth="3">
-        <circle cx="300" cy="80" r="16" />
-        <circle cx="326" cy="112" r="10" />
-        <circle cx="96" cy="96" r="12" />
-        <circle cx="80" cy="130" r="7" />
-      </g>
-      <path d="M296 74l4 4 8-9" stroke="#45b153" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
   );
 }

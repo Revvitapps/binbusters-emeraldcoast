@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: { "/og": ["./public/brand/mascot.png", "./public/brand/logo.png"] },
   poweredByHeader: false,
   reactStrictMode: true,
   allowedDevOrigins: ["192.168.*.*", "10.*.*.*"],

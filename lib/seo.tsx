@@ -50,7 +50,7 @@ export function siteGraph() {
       telephone: brand.phoneE164,
       email: brand.email,
       image: `${siteUrl}/og?title=${encodeURIComponent(brand.tagline)}`,
-      logo: `${siteUrl}/icon.svg`,
+      logo: `${siteUrl}/brand/logo.png`,
       priceRange: "$20-$50",
       founder: { "@id": OWNER },
       address: { "@type": "PostalAddress", addressRegion: brand.regionCode, addressCountry: brand.country },

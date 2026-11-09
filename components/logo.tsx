@@ -1,11 +1,19 @@
-export function LogoMark() {
+import Image from "next/image";
+
+// The Bin Busters wordmark and mascot, recovered from the original site (owner confirmed use, 2026-11-09).
+export function Logo({ height = 52, priority = false }: { height?: number; priority?: boolean }) {
+  return <Image src="/brand/logo.png" alt="Bin Busters of the Emerald Coast" width={Math.round((height * 292) / 123)} height={height} priority={priority} loading={priority ? undefined : "eager"} />;
+}
+
+export function Mascot({ size = 267, priority = false, className }: { size?: number; priority?: boolean; className?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <rect width="64" height="64" rx="14" fill="var(--black)" />
-      <circle cx="32" cy="32" r="25" fill="var(--red)" />
-      <path d="M18 22h28l-3 30a3 3 0 0 1-3 3H24a3 3 0 0 1-3-3z" fill="#fff" />
-      <rect x="15" y="16" width="34" height="6" rx="2" fill="#fff" />
-      <path d="M27 31c3 3 7 3 10 0M27 40c3 3 7 3 10 0" stroke="var(--red)" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
+    <Image
+      src="/brand/mascot.png"
+      alt="The Bin Busters mascot, a slimy trash can inside a no symbol"
+      width={size}
+      height={Math.round((size * 272) / 267)}
+      priority={priority}
+      className={className}
+    />
   );
 }

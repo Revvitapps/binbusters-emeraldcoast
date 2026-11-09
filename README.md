@@ -40,7 +40,7 @@ All optional; see [.env.example](.env.example).
 | Black | `#111111` | Old site text and stripe |
 | Headings | Montserrat 600-800 | Old site |
 | Body | Lato 400/700 | Old site |
-| Logo / icons | Stand-in bin mark (`components/logo.tsx`, `scripts/make-icons.mjs`) | Ours. The Bin Busters logo and mascot were not copied (see CLAUDE.md) |
+| Logo, mascot, illustrations, photos | `public/brand/` (`components/logo.tsx`; icons from `scripts/make-icons.mjs`) | Recovered from the old site 2026-11-09; Jarrett owns them (confirmed by Matthew). Trailer photo shows (530) 228-7046 on the wrap |
 
 Business facts (phone, email, prices, towns, ZIPs, FAQs) live in `content/site.ts`; pages, schema, `llms.txt`, the sitemap and the Ask helper all read from it.
 
@@ -64,7 +64,7 @@ App shell: manifest with shortcuts, service worker (`public/sw.js`, production o
 - Real: prices, towns, phone, email, owner story, FAQ answers, Jobber link.
 - Lead delivery: `/api/pipeline` validates and forwards to email/webhook **only when env is set**. Until then each finished request offers "Open the scheduler" (Jobber) and a prefilled text to Jarrett, so nothing depends on it.
 - ZIP list: from public ZIP boundaries; an unlisted ZIP is never a "no", it asks people to call.
-- Photos: none yet. Waiting on Jarrett.
+- Photos: logo, mascot, step illustrations, before/after and trailer photo from the old site, self-hosted in `public/brand/`.
 
 ## Verified
 

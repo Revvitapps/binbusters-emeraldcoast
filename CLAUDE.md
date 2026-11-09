@@ -6,12 +6,12 @@
 
 - 2026-11-09: Matthew (Revvit, pro bono) decided to replace the franchisor's one-page GoHighLevel site with this Next.js site on the same domain. Jarrett Gordon owns the business and opted out of the franchise agreement (starter package only).
 - 2026-11-09: This repo is the **live site**, not a prototype, so indexing follows `VERCEL_ENV` (production indexed, previews and `*.vercel.app` noindex) instead of a `SITE_INDEXING` switch. The client audit lives in `docs/AUDIT.md` and is not rendered in the app (customers would see it).
-- 2026-11-09: Brand colours and fonts recovered from the old site (red #BD1E2C, green #45B153, black; Montserrat + Lato). The Bin Busters logo, mascot and photos were **not** copied: they may belong to the franchisor. The bin mark in `components/logo.tsx` is a stand-in.
+- 2026-11-09: Brand recovered from the old site: colours, fonts, logo, mascot, step illustrations, before/after photos and trailer photo (self-hosted in `public/brand/`, captured via Chrome since the CDN is blocked from the sandbox). Matthew confirmed Jarrett owns them. Primary buttons are green 45B153 with black text (6.9:1).
 - 2026-11-09: Booking still finishes in Jobber (Jarrett's existing client hub). The funnel captures the request first (`/api/pipeline`) and offers a prefilled text to Jarrett so no lead depends on a backend.
 - DNS cutover not done yet: needs Matthew's go-ahead. Old values for rollback: `A @ 162.159.140.166`, `CNAME www sites.ludicrous.cloud`. New: `A @ 216.150.1.1`, `CNAME www cc53ae1b859741ae.vercel-dns-016.com`.
 
 ### Open questions for Jarrett
-1. Can he use the Bin Busters logo, mascot and trailer photos from the starter package? Any photos of his own trailer and before/after bins?
+1. Logo/mascot/photos: confirmed OK (Matthew, 2026-11-09). The trailer wrap shows (530) 228-7046, not (850) 396-2908: which number is current? Any new photos of his own?
 2. Where should web leads go: email (which address), text, or straight into Jobber?
 3. Does he offer anything for multiple rentals, HOAs or commercial dumpsters beyond the standard prices?
 4. Are all ZIPs in `content/site.ts` (`serviceZips`) right, and any to add?

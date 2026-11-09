@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { brand, faqs as allFaqs, plans, steps, towns, type Faq } from "@/content/site";
-import { LogoMark } from "@/components/logo";
+import Image from "next/image";
+import { Logo } from "@/components/logo";
 
 const tel = `tel:${brand.phoneE164}`;
 
@@ -9,11 +10,7 @@ export function Header() {
     <header className="site-header">
       <div className="wrap header-row">
         <Link href="/" className="logo" aria-label={`${brand.name} home`}>
-          <LogoMark />
-          <span>
-            <strong>Bin Busters</strong>
-            <small>of the Emerald Coast</small>
-          </span>
+          <Logo priority />
         </Link>
         <nav aria-label="Main" className="nav">
           <Link href="/pricing">Pricing</Link>
@@ -85,6 +82,7 @@ export function Steps({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
         <ol className="steps">
           {steps.map((s) => (
             <li key={s.title}>
+              <Image src={s.image} alt="" width={s.w} height={s.h} />
               <Sub>{s.title}</Sub>
               <p>{s.body}</p>
             </li>
@@ -141,12 +139,15 @@ export function TownGrid({ headingLevel = 2, exclude }: { headingLevel?: 2 | 3; 
 export function CtaBand() {
   return (
     <section className="cta-band">
-      <div className="wrap">
-        <h2>Ready for clean, fresh-smelling bins?</h2>
-        <p>Book online in two minutes, or call and we will set you up.</p>
-        <div className="row">
-          <BookButton />
-          <CallButton />
+      <div className="wrap cta-grid">
+        <Image src="/brand/mascot.png" alt="" width={180} height={183} className="cta-mascot" loading="eager" />
+        <div>
+          <h2>Ready for clean, fresh-smelling bins?</h2>
+          <p>Book online in two minutes, or call and we will set you up.</p>
+          <div className="row">
+            <BookButton />
+            <CallButton />
+          </div>
         </div>
       </div>
     </section>
@@ -172,7 +173,9 @@ export function Footer() {
     <footer className="site-footer">
       <div className="wrap footer-grid">
         <div>
-          <p className="footer-name">{brand.name}</p>
+          <p className="footer-logo">
+            <Logo height={56} />
+          </p>
           <p>Veteran-owned, family-run trash can cleaning on Florida's Emerald Coast.</p>
           <p>
             <a href={tel}>{brand.phone}</a>

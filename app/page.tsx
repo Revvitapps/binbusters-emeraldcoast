@@ -1,7 +1,21 @@
-import { brand, benefits, faqs } from "@/content/site";
-import { BookButton, CallButton, CtaBand, FaqList, Pricing, Steps, TownGrid } from "@/components/ui";
+import { brand, benefits, faqs, plans } from "@/content/site";
+import { BookButton, CallButton, CtaBand, FaqList, Pricing, Reviews, Steps, TownGrid, VeteranBadge, VeteranSection } from "@/components/ui";
 import { JsonLd, faqNode, pageMeta } from "@/lib/seo";
 import Link from "next/link";
+import { CalendarSync, CircleHelp, Home as HomeIcon, MapPin, Sparkles, Users, CalendarDays } from "lucide-react";
+import { AskButton } from "@/components/ask";
+import { Mascot } from "@/components/logo";
+import Image from "next/image";
+
+const needs = [
+  { label: "Monthly cleaning", sub: `$${plans[0].price}/month, 1 bin`, href: "/book?plan=monthly", Icon: CalendarSync },
+  { label: "One-time deep clean", sub: `$${plans[2].price}, 1 bin`, href: "/book?plan=one-time", Icon: Sparkles },
+  { label: "Every 12 weeks", sub: `$${plans[1].price} per clean`, href: "/book?plan=quarterly", Icon: CalendarDays },
+  { label: "My vacation rental", sub: "Clean bins between guests", href: "/vacation-rentals", Icon: HomeIcon },
+  { label: "My whole street or HOA", sub: "One clean-bin day", href: "/neighborhoods", Icon: Users },
+  { label: "Do you come to me?", sub: "Check your ZIP", href: "/book", Icon: MapPin },
+  { label: "I have a question", sub: "Quick answers or a person", ask: true, Icon: CircleHelp },
+];
 
 export const metadata = pageMeta({
   title: "Trash Can Cleaning in Fort Walton Beach & Destin | Bin Busters",
@@ -15,9 +29,9 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="wrap hero-grid">
-          <div>
-            <p className="eyebrow">Veteran-owned · Fort Walton Beach, Destin, Navarre & nearby</p>
-            <h1>Trash can cleaning on the Emerald Coast</h1>
+          <div className="hero-copy">
+            <VeteranBadge />
+            <h1>Veteran-owned trash can cleaning on the Emerald Coast</h1>
             <p className="lede">
               We clean, sanitize and deodorize your trash and recycling bins right at the curb with 200° water.
               Plans start at $20 a month.
@@ -32,11 +46,42 @@ export default function Home() {
               <li>Monthly, quarterly or one-time</li>
             </ul>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <HeroArt />
+          <div className="hero-mascot">
+            <Mascot priority />
           </div>
         </div>
       </section>
+
+      <Reviews />
+
+      <section className="section need" aria-labelledby="need-h">
+        <div className="wrap">
+          <h2 id="need-h">What do you need?</h2>
+          <div className="need-grid">
+            {needs.map((n) =>
+              n.ask ? (
+                <AskButton key={n.label} className="need">
+                  <n.Icon aria-hidden />
+                  <span>
+                    <strong>{n.label}</strong>
+                    <small>{n.sub}</small>
+                  </span>
+                </AskButton>
+              ) : (
+                <Link key={n.label} href={n.href!} className="need">
+                  <n.Icon aria-hidden />
+                  <span>
+                    <strong>{n.label}</strong>
+                    <small>{n.sub}</small>
+                  </span>
+                </Link>
+              ),
+            )}
+          </div>
+        </div>
+      </section>
+
+      <VeteranSection />
 
       <section className="section" aria-labelledby="why-h">
         <div className="wrap">
@@ -54,52 +99,35 @@ export default function Home() {
       </section>
 
       <Steps />
-      <Pricing />
-      <TownGrid />
 
-      <section className="section" aria-labelledby="owner-h">
-        <div className="wrap narrow">
-          <h2 id="owner-h">Keeping the Emerald Coast clean</h2>
-          <p>
-            Living here, {brand.owner.name.split(" ")[0]} got tired of filthy, smelly trash cans in our hot, humid weather,
-            and knew his neighbors felt the same. After 20 years in the U.S. Air Force, he started this family-owned business
-            to make clean, fresh-smelling bins easy for everyone. <Link href="/about">Meet the owner</Link>.
-          </p>
+      <section className="section proof" aria-labelledby="proof-h">
+        <div className="wrap proof-grid">
+          <div>
+            <h2 id="proof-h">See the difference</h2>
+            <p className="lede">A real bin before and after a Bin Busters clean.</p>
+            <div className="ba">
+              <figure>
+                <Image src="/brand/before.png" alt="Inside of a dirty trash can full of grime and litter" width={300} height={285} />
+                <figcaption>Before</figcaption>
+              </figure>
+              <figure>
+                <Image src="/brand/after.png" alt="Inside of the same trash can after cleaning, bright and clean" width={300} height={281} />
+                <figcaption>After</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div className="trailer">
+            <Image src="/brand/trailer.png" alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay" width={639} height={501} />
+            <p className="muted">Our trailer washes each bin right at your curb.</p>
+          </div>
         </div>
       </section>
+      <Pricing />
+      <TownGrid />
 
       <FaqList items={faqs.slice(0, 6)} />
       <CtaBand />
       <JsonLd nodes={[faqNode(faqs.slice(0, 6), "/")]} />
     </>
-  );
-}
-
-function HeroArt() {
-  return (
-    <svg viewBox="0 0 400 320" width="400" height="320" role="presentation">
-      <defs>
-        <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#d9f3ea" />
-          <stop offset="1" stopColor="#f6fbf9" />
-        </linearGradient>
-      </defs>
-      <rect width="400" height="320" rx="24" fill="url(#sky)" />
-      <path d="M0 250 Q100 225 200 250 T400 250 V320 H0Z" fill="#0b6e4f" opacity=".15" />
-      <g transform="translate(130 70)">
-        <rect x="-8" y="0" width="156" height="22" rx="6" fill="#0b6e4f" />
-        <path d="M0 26h140l-12 170a10 10 0 0 1-10 9H22a10 10 0 0 1-10-9z" fill="#14936b" />
-        <path d="M40 60v110M70 60v110M100 60v110" stroke="#0b6e4f" strokeWidth="6" strokeLinecap="round" opacity=".35" />
-        <circle cx="22" cy="214" r="12" fill="#0f2a3d" />
-        <circle cx="118" cy="214" r="12" fill="#0f2a3d" />
-      </g>
-      <g fill="#fff" stroke="#14936b" strokeWidth="3">
-        <circle cx="300" cy="80" r="16" />
-        <circle cx="326" cy="112" r="10" />
-        <circle cx="96" cy="96" r="12" />
-        <circle cx="80" cy="130" r="7" />
-      </g>
-      <path d="M296 74l4 4 8-9" stroke="#14936b" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
   );
 }

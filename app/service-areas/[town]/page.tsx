@@ -55,7 +55,7 @@ export default async function TownPage({ params }: Props) {
           <h1>Trash can cleaning in {t.name}, FL</h1>
           <p className="lede">{t.intro}</p>
           <div className="row">
-            <BookButton />
+            <BookButton href={`/book?town=${t.slug}`} label={`Book in ${t.name}`} />
             <CallButton />
           </div>
           {nearby.length > 0 && (

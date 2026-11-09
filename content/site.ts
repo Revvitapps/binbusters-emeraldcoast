@@ -3,6 +3,10 @@
 
 const env = (key: string) => process.env[key]?.trim() || undefined;
 
+// Live Google Business Profile (5.0, 15 reviews on 2026-11-09). Env vars override.
+const GBP_MAPS_URL = "https://maps.google.com/?cid=1746356444272120358";
+const GBP_REVIEW_URL = "https://g.page/r/CSbSDfjuTTwYEAE/review";
+
 export const siteUrl = (env("NEXT_PUBLIC_SITE_URL") ?? "https://binbusters-emeraldcoast.com").replace(/\/$/, "");
 
 export const brand = {
@@ -29,9 +33,9 @@ export const brand = {
   sameAs: [
     "https://www.facebook.com/profile.php?id=61574866272048",
     "https://www.instagram.com/jarrettcgordon/",
-    ...(env("NEXT_PUBLIC_BRAND_GBP_URL") ? [env("NEXT_PUBLIC_BRAND_GBP_URL") as string] : []),
+    env("NEXT_PUBLIC_BRAND_GBP_URL") ?? GBP_MAPS_URL,
   ],
-  googleBusinessProfile: env("NEXT_PUBLIC_BRAND_GBP_URL"),
+  googleBusinessProfile: env("NEXT_PUBLIC_BRAND_GBP_URL") ?? GBP_MAPS_URL,
   extraBinPrice: 10,
 };
 
@@ -189,18 +193,23 @@ export const steps = [
   {
     title: "Sign up",
     body: "Pick a monthly, quarterly or one-time clean and book online. Payment is handled through a secure portal.",
+    image: "/brand/step-signup.png",
+    w: 251,
+    h: 230,
   },
   {
-    title: "We come after trash pickup",
-    body: "We schedule your clean for the day after your trash is collected, so your bins are empty. Leave them at the curb.",
+    title: "We clean",
+    body: "The day after your trash pickup, our trailer washes each bin inside and out with pressurized water over 200°F, killing about 99% of bacteria. Just leave them at the curb.",
+    image: "/brand/step-clean.png",
+    w: 219,
+    h: 185,
   },
   {
-    title: "Clean and sanitize",
-    body: "Our trailer washes each bin inside and out with pressurized water over 200°F, which kills about 99% of bacteria and germs.",
-  },
-  {
-    title: "Deodorize and return",
+    title: "Clean bins",
     body: "We finish with an eco-friendly deodorizer and put your bins back where you keep them.",
+    image: "/brand/step-bins.png",
+    w: 219,
+    h: 185,
   },
 ];
 
@@ -257,3 +266,36 @@ export const faqs: Faq[] = [
 ];
 
 export const lastUpdated = "2026-11-09";
+
+/** ZIP codes that cover our towns. A ZIP not listed here is not a "no": the funnel asks people to call. */
+export const serviceZips: Record<string, string[]> = {
+  "32547": ["fort-walton-beach", "wright"],
+  "32548": ["fort-walton-beach", "ocean-city"],
+  "32541": ["destin"],
+  "32540": ["destin"],
+  "32566": ["navarre"],
+  "32578": ["niceville", "bluewater-bay"],
+  "32569": ["mary-esther", "wynnehaven-beach"],
+  "32579": ["shalimar"],
+  "32580": ["valparaiso"],
+  "32550": ["miramar-beach", "sandestin"],
+};
+
+export const reviewUrl =
+  env("NEXT_PUBLIC_GBP_REVIEW_URL") ?? GBP_REVIEW_URL;
+
+// Real Google reviews, quoted verbatim (trimmed with …) from the Business Profile on 2026-11-09.
+export const reviews = [
+  { name: "Seth L.", text: "The owner/operator is very courteous and professional. The trash bins come out spotless and odor free every time. The prices are super reasonable…" },
+  { name: "Chris M.", text: "They wash both of my cans once a month and it has cut down majorly on the flies and the cans look great!" },
+  { name: "Chad S.", text: "They came right away to clean our trash bins… They’re like new again! The service was impeccable and friendly." },
+  { name: "Monica A.", text: "I love this service! My trash and recycle bin were cleaned and sanitized today for the first time… Thank you for the thorough job." },
+  { name: "Carl B.", text: "Always on time and does a great job. Communication and ease of payment is a plus." },
+  { name: "Jae B.", text: "They are professional, and conveniently come to your home or office — leaving your bins sparkling clean and disinfected." },
+];
+export const reviewSummary = { rating: "5.0", count: 15 };
+
+export const priceFor = (planId: string, bins: number) => {
+  const p = plans.find((x) => x.id === planId);
+  return p ? p.price + Math.max(0, bins - 1) * brand.extraBinPrice : 0;
+};

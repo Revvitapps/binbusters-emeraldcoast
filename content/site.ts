@@ -193,23 +193,14 @@ export const steps = [
   {
     title: "Sign up",
     body: "Pick a monthly, quarterly or one-time clean and book online. Payment is handled through a secure portal.",
-    image: "/brand/step-signup.png",
-    w: 251,
-    h: 230,
   },
   {
     title: "We clean",
     body: "The day after your trash pickup, our trailer washes each bin inside and out with pressurized water over 200°F, killing about 99% of bacteria. Just leave them at the curb.",
-    image: "/brand/step-clean.png",
-    w: 219,
-    h: 185,
   },
   {
     title: "Clean bins",
     body: "We finish with an eco-friendly deodorizer and put your bins back where you keep them.",
-    image: "/brand/step-bins.png",
-    w: 219,
-    h: 185,
   },
 ];
 

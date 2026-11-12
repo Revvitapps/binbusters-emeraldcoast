@@ -57,7 +57,7 @@ Business facts (phone, email, prices, towns, ZIPs, FAQs) live in `content/site.t
 | `/llms.txt`, `/sitemap.xml`, `/robots.txt`, `/og` | Machine-readable files and share images |
 | Ask (tab bar) | Scripted answers from the FAQ and prices; anything else goes to call or text |
 
-App shell: manifest with shortcuts, service worker (`public/sw.js`, production only, network-first pages, `/offline.html` fallback), install prompt from the second visit or after a request, bottom tab bar on every screen size with Book raised in the centre.
+App shell: manifest with shortcuts, service worker (`public/sw.js`, production only, network-first pages, `/offline.html` fallback), install prompt from the second visit or after a request, bottom tab bar on phones and tablets with Book raised in the centre (desktop uses the header navigation).
 
 ## Real vs stubbed
 

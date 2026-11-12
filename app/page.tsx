@@ -1,10 +1,9 @@
-import { brand, benefits, faqs, plans } from "@/content/site";
-import { BookButton, CallButton, CtaBand, FaqList, Pricing, Reviews, Steps, TownGrid, VeteranBadge, VeteranSection } from "@/components/ui";
+import { brand, benefits, faqs, plans, reviewSummary } from "@/content/site";
+import { BookButton, CallButton, CtaBand, FaqList, Pricing, Reviews, Stars, Steps, TownGrid, VeteranBadge, VeteranSection } from "@/components/ui";
 import { JsonLd, faqNode, pageMeta } from "@/lib/seo";
 import Link from "next/link";
-import { CalendarSync, CircleHelp, Home as HomeIcon, MapPin, Sparkles, Users, CalendarDays } from "lucide-react";
+import { ArrowRight, BugOff, CalendarCheck, CalendarDays, CalendarSync, Check, CircleHelp, Home as HomeIcon, MapPin, ShieldCheck, Smartphone, Sparkles, Thermometer, Users, Wind } from "lucide-react";
 import { AskButton } from "@/components/ask";
-import { Mascot } from "@/components/logo";
 import Image from "next/image";
 
 const needs = [
@@ -15,6 +14,15 @@ const needs = [
   { label: "My whole street or HOA", sub: "One clean-bin day", href: "/neighborhoods", Icon: Users },
   { label: "Do you come to me?", sub: "Check your ZIP", href: "/book", Icon: MapPin },
   { label: "I have a question", sub: "Quick answers or a person", ask: true, Icon: CircleHelp },
+];
+
+const benefitIcons = [ShieldCheck, Wind, BugOff, Smartphone];
+
+const trust = [
+  { Icon: ShieldCheck, label: "Veteran-owned", sub: "20 years U.S. Air Force" },
+  { Icon: Thermometer, label: "200°F water", sub: "Kills about 99% of bacteria" },
+  { Icon: CalendarCheck, label: "No need to be home", sub: "We come after trash pickup" },
+  { Icon: MapPin, label: "Local to the Emerald Coast", sub: "Okaloosa, Walton and Santa Rosa" },
 ];
 
 export const metadata = pageMeta({
@@ -40,15 +48,42 @@ export default function Home() {
               <BookButton />
               <CallButton />
             </div>
-            <ul className="checks">
-              <li>Kills about 99% of bacteria</li>
-              <li>No need to be home</li>
-              <li>Monthly, quarterly or one-time</li>
-            </ul>
+            <p className="hero-rating">
+              <Stars size={16} />
+              <span>
+                <strong>{reviewSummary.rating}</strong> on Google from {reviewSummary.count} local reviews
+              </span>
+            </p>
           </div>
-          <div className="hero-mascot">
-            <Mascot priority />
+          <div className="hero-visual">
+            <Image
+              src="/brand/trailer.png"
+              alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay"
+              width={639}
+              height={501}
+              priority
+              sizes="(max-width: 960px) 90vw, 46vw"
+            />
+            <p className="hero-chip">
+              <Thermometer aria-hidden size={18} />
+              <span>
+                <strong>200°F</strong> pressurized wash at your curb
+              </span>
+            </p>
           </div>
+        </div>
+        <div className="wrap">
+          <ul className="trust">
+            {trust.map(({ Icon, label, sub }) => (
+              <li key={label}>
+                <Icon aria-hidden size={22} />
+                <span>
+                  <strong>{label}</strong>
+                  <small>{sub}</small>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -56,24 +91,27 @@ export default function Home() {
 
       <section className="section need" aria-labelledby="need-h">
         <div className="wrap">
+          <p className="eyebrow">Get started</p>
           <h2 id="need-h">What do you need?</h2>
           <div className="need-grid">
             {needs.map((n) =>
               n.ask ? (
                 <AskButton key={n.label} className="need">
-                  <n.Icon aria-hidden />
+                  <span className="need-icon"><n.Icon aria-hidden /></span>
                   <span>
                     <strong>{n.label}</strong>
                     <small>{n.sub}</small>
                   </span>
+                  <ArrowRight aria-hidden className="need-arrow" />
                 </AskButton>
               ) : (
                 <Link key={n.label} href={n.href!} className="need">
-                  <n.Icon aria-hidden />
+                  <span className="need-icon"><n.Icon aria-hidden /></span>
                   <span>
                     <strong>{n.label}</strong>
                     <small>{n.sub}</small>
                   </span>
+                  <ArrowRight aria-hidden className="need-arrow" />
                 </Link>
               ),
             )}
@@ -85,15 +123,20 @@ export default function Home() {
 
       <section className="section" aria-labelledby="why-h">
         <div className="wrap">
+          <p className="eyebrow">Why it matters</p>
           <h2 id="why-h">Why clean your bins?</h2>
           <p className="lede">Florida heat turns a dirty can into a home for bacteria, flies and maggots within days.</p>
           <div className="cards four">
-            {benefits.map((b) => (
-              <div className="card" key={b.title}>
-                <h3>{b.title}</h3>
-                <p>{b.body}</p>
-              </div>
-            ))}
+            {benefits.map((b, i) => {
+              const Icon = benefitIcons[i % benefitIcons.length];
+              return (
+                <div className="card benefit" key={b.title}>
+                  <span className="benefit-icon"><Icon aria-hidden size={22} /></span>
+                  <h3>{b.title}</h3>
+                  <p>{b.body}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -103,22 +146,25 @@ export default function Home() {
       <section className="section proof" aria-labelledby="proof-h">
         <div className="wrap proof-grid">
           <div>
+            <p className="eyebrow">Results</p>
             <h2 id="proof-h">See the difference</h2>
             <p className="lede">A real bin before and after a Bin Busters clean.</p>
-            <div className="ba">
-              <figure>
-                <Image src="/brand/before.png" alt="Inside of a dirty trash can full of grime and litter" width={300} height={285} />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure>
-                <Image src="/brand/after.png" alt="Inside of the same trash can after cleaning, bright and clean" width={300} height={281} />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
+            <ul className="ticks">
+              <li><Check aria-hidden size={18} /> Washed inside and out with water over 200°F</li>
+              <li><Check aria-hidden size={18} /> Finished with an eco-friendly deodorizer</li>
+              <li><Check aria-hidden size={18} /> Bins go back where you keep them</li>
+            </ul>
+            <BookButton />
           </div>
-          <div className="trailer">
-            <Image src="/brand/trailer.png" alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay" width={639} height={501} />
-            <p className="muted">Our trailer washes each bin right at your curb.</p>
+          <div className="ba">
+            <figure>
+              <Image src="/brand/before.png" alt="Inside of a dirty trash can full of grime and litter" width={300} height={285} />
+              <figcaption>Before</figcaption>
+            </figure>
+            <figure>
+              <Image src="/brand/after.png" alt="Inside of the same trash can after cleaning, bright and clean" width={300} height={281} />
+              <figcaption>After</figcaption>
+            </figure>
           </div>
         </div>
       </section>

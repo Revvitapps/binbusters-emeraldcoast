@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { towns } from "@/content/site";
 import { Breadcrumbs, CtaBand } from "@/components/ui";
 import { JsonLd, breadcrumbNode, pageMeta } from "@/lib/seo";
@@ -35,7 +36,10 @@ export default function Areas() {
                   .filter((t) => t.county === c)
                   .map((t) => (
                     <li key={t.slug}>
-                      <Link href={`/service-areas/${t.slug}`}>{t.name}</Link>
+                      <Link href={`/service-areas/${t.slug}`}>
+                        <MapPin aria-hidden size={16} />
+                        {t.name}
+                      </Link>
                     </li>
                   ))}
               </ul>

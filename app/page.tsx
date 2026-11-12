@@ -69,17 +69,22 @@ export default function Home() {
             </ul>
           </div>
           <div className="hero-visual">
-            <div className="hero-signal" aria-hidden="true">
-              <Mascot size={230} priority />
+            <div className="hero-rig">
+              <div className="hero-signal" aria-hidden="true">
+                <Mascot size={230} priority />
+              </div>
+              <div className="hero-trailer">
+                <span className="hero-beam" aria-hidden="true" />
+                <Image
+                  src="/brand/trailer-left.png"
+                  alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay"
+                  width={1280}
+                  height={988}
+                  priority
+                  sizes="(max-width: 960px) 90vw, 46vw"
+                />
+              </div>
             </div>
-            <Image
-              src="/brand/trailer.png"
-              alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay"
-              width={639}
-              height={501}
-              priority
-              sizes="(max-width: 960px) 90vw, 46vw"
-            />
             <p className="hero-chip">
               <Thermometer aria-hidden size={18} />
               <span>

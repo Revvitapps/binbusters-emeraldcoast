@@ -74,7 +74,6 @@ export default function Home() {
                 <Mascot size={230} priority />
               </div>
               <div className="hero-trailer">
-                <span className="hero-beam" aria-hidden="true" />
                 <Image
                   src="/brand/trailer-left.png"
                   alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay"

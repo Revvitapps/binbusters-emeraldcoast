@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
-import Image from "next/image";
-import { Logo } from "@/components/logo";
+import { Logo, Mascot } from "@/components/logo";
 import { ReviewCarousel } from "@/components/review-carousel";
 import { ArrowRight, Check, ChevronDown, Droplets, MapPin, MousePointerClick, Phone, Sparkles, Star as StarIcon } from "lucide-react";
 
@@ -21,6 +20,7 @@ function HeaderBar() {
     <header className="site-header">
       <div className="wrap header-row">
         <Link href="/" className="logo" aria-label={`${brand.name} home`}>
+          <Mascot size={46} priority className="logo-mascot" />
           <Logo priority />
         </Link>
         <nav aria-label="Main" className="nav">
@@ -192,6 +192,7 @@ export function CtaBand() {
           <BookButton />
           <CallButton />
         </div>
+        <Mascot size={150} sticker className="cta-mascot" />
       </div>
     </section>
   );
@@ -218,7 +219,7 @@ export function Footer() {
         <div>
           <p className="footer-logo">
             <Logo height={52} onDark />
-            <Image src="/brand/mascot.png" alt="" width={52} height={53} className="footer-mascot" />
+            <Mascot size={64} sticker className="footer-mascot" />
           </p>
           <p><strong className="footer-vet">Veteran-owned &amp; operated</strong><br />Family-run trash can cleaning on Florida's Emerald Coast, owned by a 20-year U.S. Air Force veteran.</p>
           <p>

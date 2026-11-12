@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, BugOff, CalendarCheck, CalendarDays, CalendarSync, Check, CircleHelp, Home as HomeIcon, MapPin, ShieldCheck, Smartphone, Sparkles, Thermometer, Users, Wind } from "lucide-react";
 import { AskButton } from "@/components/ask";
 import Image from "next/image";
+import { Mascot } from "@/components/logo";
 
 const needs = [
   { label: "Monthly cleaning", sub: `$${plans[0].price}/month, 1 bin`, href: "/book?plan=monthly", Icon: CalendarSync },
@@ -19,7 +20,7 @@ const needs = [
 const benefitIcons = [ShieldCheck, Wind, BugOff, Smartphone];
 
 const trust = [
-  { Icon: ShieldCheck, label: "Veteran-owned", sub: "20 years U.S. Air Force" },
+  { Icon: Sparkles, label: "Sanitized and deodorized", sub: "Inside and out, every visit" },
   { Icon: Thermometer, label: "200°F water", sub: "Kills about 99% of bacteria" },
   { Icon: CalendarCheck, label: "No need to be home", sub: "We come after trash pickup" },
   { Icon: MapPin, label: "Local to the Emerald Coast", sub: "Okaloosa, Walton and Santa Rosa" },
@@ -39,7 +40,9 @@ export default function Home() {
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <VeteranBadge />
-            <h1>Veteran-owned trash can cleaning on the Emerald Coast</h1>
+            <h1>
+              Veteran-owned trash can cleaning <span className="accent">on the Emerald Coast</span>
+            </h1>
             <p className="lede">
               We clean, sanitize and deodorize your trash and recycling bins right at the curb with 200° water.
               Plans start at $20 a month.
@@ -48,14 +51,27 @@ export default function Home() {
               <BookButton />
               <CallButton />
             </div>
-            <p className="hero-rating">
-              <Stars size={16} />
-              <span>
-                <strong>{reviewSummary.rating}</strong> on Google from {reviewSummary.count} local reviews
-              </span>
-            </p>
+            <ul className="hero-badges">
+              <li>
+                <Stars size={15} />
+                <span>
+                  <strong>{reviewSummary.rating} on Google</strong>
+                  <small>{reviewSummary.count} local reviews</small>
+                </span>
+              </li>
+              <li>
+                <ShieldCheck aria-hidden size={22} />
+                <span>
+                  <strong>Veteran-owned</strong>
+                  <small>20 years U.S. Air Force</small>
+                </span>
+              </li>
+            </ul>
           </div>
           <div className="hero-visual">
+            <div className="hero-signal" aria-hidden="true">
+              <Mascot size={230} priority />
+            </div>
             <Image
               src="/brand/trailer.png"
               alt="The Bin Busters cleaning trailer with its lift tipping a trash can into the wash bay"

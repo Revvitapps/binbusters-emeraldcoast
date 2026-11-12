@@ -63,9 +63,7 @@ try {
       await page.goto(BASE + p, { waitUntil: "networkidle" });
       const sw = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, window.innerWidth) - (window.visualViewport?.width ?? window.innerWidth) * (window.visualViewport?.scale ?? 1));
       if (sw > 0) fail.push(`${name} ${p}: horizontal overflow ${sw}px`);
-      // The app tab bar is for phones and tablets; desktop uses the header navigation.
-      const tabVisible = await page.locator(".tabbar .tab-center").isVisible();
-      if (name === "desktop" ? tabVisible : !tabVisible) fail.push(`${name} ${p}: tab bar ${name === "desktop" ? "should be hidden" : "missing"}`);
+      if (!(await page.locator(".tabbar .tab-center").isVisible())) fail.push(`${name} ${p}: tab bar missing`);
       if (name !== "narrow") {
         await page.addScriptTag({ content: axeSrc });
         const res = await page.evaluate(async () => (await window.axe.run(document, { runOnly: ["wcag2a", "wcag2aa"] })).violations.map((v) => `${v.id} (${v.nodes.length})`));

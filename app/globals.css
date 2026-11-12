@@ -92,7 +92,9 @@ strong { color: var(--ink); font-weight: 700; }
 .site-header { background: rgba(255, 255, 255, 0.94); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
 .header-row { display: flex; align-items: center; gap: 36px; min-height: 72px; }
 .logo { display: flex; align-items: center; text-decoration: none; color: var(--ink); }
+.logo { gap: 10px; }
 .logo img { display: block; height: 44px; width: auto; }
+.logo .logo-mascot { height: 46px; width: auto; }
 .nav { display: flex; gap: 6px; }
 .nav a { color: var(--body); text-decoration: none; font-weight: 600; font-size: 0.94rem; padding: 8px 12px; border-radius: 8px; transition: background 0.15s ease, color 0.15s ease; }
 .nav a:hover { background: var(--sand); color: var(--ink); }
@@ -123,11 +125,16 @@ strong { color: var(--ink); font-weight: 700; }
 .hero .wrap { position: relative; z-index: 1; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding-top: clamp(44px, 6.5vw, 92px); padding-bottom: clamp(36px, 5vw, 72px); }
 .hero h1 { color: #fff; max-width: 17ch; }
+.hero h1 .accent { color: var(--green-on-night); display: inline-block; }
 .hero .lede { color: #c9d2ce; max-width: 50ch; }
 .hero .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, 0.34); background: rgba(255, 255, 255, 0.04); }
 .hero .btn-ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
-.hero-rating { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--on-night-muted); font-size: 0.95rem; }
-.hero-rating strong { color: #fff; }
+.hero-badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-badges li { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--night-line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.hero-badges li > svg { color: var(--green-on-night); }
+.hero-badges span:not(.stars) { display: flex; flex-direction: column; line-height: 1.25; }
+.hero-badges strong { color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; }
+.hero-badges small { color: var(--on-night-muted); font-size: 0.82rem; }
 .stars { display: inline-flex; gap: 2px; color: var(--gold); vertical-align: middle; }
 
 .vet-badge { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; padding: 7px 14px 7px 11px; border-radius: 999px; border: 1px solid var(--line-strong); background: #fff; color: var(--ink); font-family: var(--font-mono), ui-monospace, monospace; font-weight: 500; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.15em; line-height: 1; }
@@ -135,10 +142,14 @@ strong { color: var(--ink); font-weight: 700; }
 .hero .vet-badge { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.2); color: #fff; }
 .hero .vet-badge svg { color: var(--green-on-night); }
 
-.hero-visual { position: relative; display: grid; place-items: center; }
+.hero-visual { position: relative; display: grid; place-items: center; padding-top: clamp(40px, 7vw, 96px); }
+/* The mascot as a lit signal above the trailer (the logo-as-spotlight idea from the DiFiore Builders site) */
+.hero-signal { position: absolute; z-index: 2; left: 0; top: 0; width: clamp(130px, 17vw, 236px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, #ffffff 0%, #f3fbf4 52%, rgba(214, 245, 219, 0.9) 68%, rgba(190, 240, 198, 0) 72%); box-shadow: 0 0 70px 14px rgba(160, 235, 172, 0.32), 0 0 160px 50px rgba(127, 220, 139, 0.16); animation: signal 5s ease-in-out infinite; }
+.hero-signal img { width: 76%; height: auto; filter: none; max-width: none; }
+@keyframes signal { 0%, 100% { box-shadow: 0 0 70px 14px rgba(160, 235, 172, 0.32), 0 0 160px 50px rgba(127, 220, 139, 0.16); } 50% { box-shadow: 0 0 90px 22px rgba(160, 235, 172, 0.42), 0 0 190px 64px rgba(127, 220, 139, 0.2); } }
 .hero-visual::before { content: ""; position: absolute; left: 8%; right: 8%; bottom: 3%; height: 11%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent); filter: blur(8px); }
-.hero-visual img { position: relative; width: 100%; max-width: 620px; height: auto; display: block; filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.42)); }
-.hero-chip { position: absolute; left: 0; bottom: 6%; margin: 0; display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-radius: 12px; background: rgba(19, 28, 25, 0.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--night-line); color: #d5ddd9; font-size: 0.9rem; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.36); }
+.hero-visual > img { position: relative; z-index: 1; width: 100%; max-width: 620px; height: auto; display: block; filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.42)); }
+.hero-chip { position: absolute; z-index: 3; left: 0; bottom: 6%; margin: 0; display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-radius: 12px; background: rgba(19, 28, 25, 0.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--night-line); color: #d5ddd9; font-size: 0.9rem; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.36); }
 .hero-chip svg { color: var(--green-on-night); }
 .hero-chip strong { color: #fff; font-family: var(--font-display); }
 
@@ -299,7 +310,9 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 
 /* ---- CTA band ---- */
 .cta-band { background: radial-gradient(46% 120% at 0% 100%, rgba(189, 30, 44, 0.2), transparent 70%), radial-gradient(46% 120% at 100% 0%, rgba(69, 177, 83, 0.2), transparent 70%), var(--night); color: #c9d2ce; padding: clamp(52px, 7vw, 88px) 0; border-bottom: 1px solid var(--night-line); }
-.cta-grid { display: flex; align-items: center; justify-content: space-between; gap: 28px 48px; flex-wrap: wrap; }
+.cta-grid { display: flex; align-items: center; gap: 28px 48px; flex-wrap: wrap; }
+.cta-grid > div:first-child { flex: 1 1 380px; }
+.cta-mascot { width: 150px; height: auto; order: -1; }
 .cta-band h2 { color: #fff; margin-bottom: 0.3em; }
 .cta-band p { margin: 0; }
 .cta-band .eyebrow { color: var(--green-on-night); margin-bottom: 14px; }
@@ -369,7 +382,7 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 .ask-human p { margin: 0; font-weight: 600; color: var(--ink); }
 .ask-human .row { margin: 12px 0 0; }
 
-/* ---- Tab bar (phones and tablets) ---- */
+/* ---- Tab bar (every screen size, as on the other Revvit builds) ---- */
 .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(5, 1fr); align-items: end; background: rgba(12, 19, 17, 0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); padding: 0 8px env(safe-area-inset-bottom); height: calc(var(--tabbar) + env(safe-area-inset-bottom)); border-top: 1px solid var(--night-line); }
 .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: var(--tabbar); color: #b3bdb9; text-decoration: none; font: inherit; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.01em; background: none; border: 0; cursor: pointer; transition: color 0.15s ease; }
 .tab:hover { color: #fff; }
@@ -378,14 +391,12 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 .tab[aria-current="page"] .tab-icon { color: var(--green-on-night); }
 .tab-center { color: #fff; }
 .tab-center .tab-icon { width: 54px; height: 54px; margin-top: -22px; border-radius: 18px; background: var(--green); color: var(--ink) !important; border: 4px solid var(--night); box-shadow: 0 8px 20px rgba(69, 177, 83, 0.35); }
-/* Desktop has the header navigation, so the app bar is for phones and tablets only. */
-@media (min-width: 961px) { .tabbar { display: none; } }
+@media (min-width: 961px) { .tabbar { padding-left: calc((100vw - 620px) / 2); padding-right: calc((100vw - 620px) / 2); } }
 
 /* Install prompt */
 .install { position: fixed; left: 12px; right: 12px; bottom: calc(var(--tabbar) + env(safe-area-inset-bottom) + 14px); z-index: 25; max-width: 520px; margin: 0 auto; display: flex; gap: 12px; align-items: center; background: #fff; color: var(--body); border: 1px solid var(--line); border-radius: 16px; padding: 14px 8px 14px 18px; box-shadow: 0 18px 44px rgba(12, 19, 17, 0.24); }
 .install p { margin: 2px 0 0; font-size: 0.9rem; color: var(--muted); }
 .install > div { flex: 1; }
-@media (min-width: 961px) { .install { bottom: 20px; } }
 
 /* ---- Footer ---- */
 .site-footer { background: var(--night); color: var(--on-night-muted); padding: 64px 0 calc(28px + var(--tabbar) + env(safe-area-inset-bottom)); font-size: 0.94rem; }
@@ -399,11 +410,10 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 .footer-grid > div:first-child p { max-width: 38ch; }
 .footer-logo { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
 .footer-logo img { display: block; height: 52px; width: auto; }
-.footer-logo .footer-mascot { height: 52px; width: 52px; }
+.footer-logo .footer-mascot { height: 64px; width: auto; order: -1; }
 .footer-h, .footer-vet { color: #fff; font-family: var(--font-mono), ui-monospace, monospace; font-weight: 500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; }
 .footer-h { margin-bottom: 18px; }
 .footer-vet { display: inline-block; margin-bottom: 6px; color: var(--green-on-night); }
-@media (min-width: 961px) { .site-footer { padding-bottom: 28px; } }
 .copyright { margin-top: 48px; padding-top: 24px; font-size: 0.84rem; color: var(--on-night-muted); position: relative; }
 .copyright::before { content: ""; position: absolute; left: var(--pad); right: var(--pad); top: 0; height: 1px; background: var(--night-line); }
 
@@ -433,7 +443,12 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 @media (max-width: 560px) {
   body { font-size: 16.5px; }
   .header-row { gap: 12px; min-height: 62px; }
-  .logo img { height: 38px; }
+  .logo img { height: 36px; }
+  .logo .logo-mascot { height: 38px; }
+  .logo { gap: 7px; }
+  .site-header .btn-sm { padding: 8px 13px; }
+  .cta-mascot { width: 96px; align-self: center; }
+  .hero-badges li { flex: 1 1 auto; padding: 10px 12px; gap: 10px; }
   .header-cta .phone { display: none; }
   .hero .row .btn, .cta-band .row .btn, .page-head .row .btn { flex: 1 1 100%; }
   .hero-chip { position: static; margin-top: 14px; justify-self: start; }

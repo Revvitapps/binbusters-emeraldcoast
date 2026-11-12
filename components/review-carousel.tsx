@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 type Review = { name: string; text: string };
 
@@ -34,7 +34,11 @@ export function ReviewCarousel({ reviews }: { reviews: Review[] }) {
       <div className="carousel-track" aria-live={paused ? "polite" : "off"}>
         {shown.map((r, k) => (
           <figure key={`${i}-${k}`} className={k === 1 ? "slide slide-2" : "slide"}>
-            <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <span className="stars" role="img" aria-label="5 out of 5 stars">
+              {[0, 1, 2, 3, 4].map((s) => (
+                <Star key={s} aria-hidden size={18} fill="currentColor" strokeWidth={0} />
+              ))}
+            </span>
             <blockquote>{r.text}</blockquote>
             <figcaption>
               <span className="avatar" aria-hidden="true">{r.name[0]}</span>

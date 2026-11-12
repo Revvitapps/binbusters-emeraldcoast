@@ -5,12 +5,12 @@ import { mkdirSync } from "node:fs";
 mkdirSync("public/pwa", { recursive: true });
 const MASCOT = "public/brand/mascot.png";
 
-// Mascot centred on a white tile; `fill` is the share of the tile the mascot covers.
+// Mascot centred on a plain white tile; `fill` is the share of the tile the mascot covers.
 async function icon(size, fill, rounded, file) {
   const inner = Math.round(size * fill);
   const mascot = await sharp(MASCOT).trim().resize(inner, inner, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
   const r = rounded ? Math.round(size * 0.22) : 0;
-  const bg = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" fill="#ffffff"/><rect y="${Math.round(size * 0.44)}" width="${size}" height="${Math.round(size * 0.12)}" fill="#111111"/></svg>`);
+  const bg = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" fill="#ffffff"/></svg>`);
   await sharp(bg).composite([{ input: mascot, gravity: "center" }]).png().toFile(file);
 }
 

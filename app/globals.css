@@ -144,15 +144,15 @@ strong { color: var(--ink); font-weight: 700; }
 
 .hero-visual { position: relative; display: grid; place-items: center; }
 /* The trailer faces left and the mascot rises out of its wash bay on a beam (a nod to the Ghostbusters line on the wrap; the logo-as-spotlight idea is from the DiFiore Builders site) */
-.hero-rig { --disc: clamp(150px, 15vw, 212px); --rise: clamp(176px, 18vw, 252px); --src: 45%; position: relative; width: 100%; max-width: 520px; padding-top: var(--rise); }
+.hero-rig { --disc: clamp(150px, 15vw, 212px); --rise: clamp(176px, 18vw, 252px); --src: 20%; position: relative; width: 100%; max-width: 520px; padding-top: var(--rise); }
 .hero-signal { position: absolute; z-index: 3; left: var(--src); top: 0; margin-left: calc(var(--disc) / -2); width: var(--disc); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, #ffffff 0%, #f3fbf4 52%, rgba(214, 245, 219, 0.9) 68%, rgba(190, 240, 198, 0) 72%); box-shadow: 0 0 70px 14px rgba(160, 235, 172, 0.32), 0 0 160px 50px rgba(127, 220, 139, 0.16); animation: signal 5s ease-in-out infinite; }
 .hero-signal img { width: 76%; height: auto; filter: none; max-width: none; }
 @keyframes signal { 0%, 100% { box-shadow: 0 0 70px 14px rgba(160, 235, 172, 0.32), 0 0 160px 50px rgba(127, 220, 139, 0.16); } 50% { box-shadow: 0 0 90px 22px rgba(160, 235, 172, 0.42), 0 0 190px 64px rgba(127, 220, 139, 0.2); } }
 .hero-trailer { position: relative; }
-/* The beam: narrow where it leaves the wash bay, opening out to the disc */
-.hero-beam { position: absolute; z-index: 2; left: var(--src); bottom: 86%; height: calc(var(--rise) - var(--disc) / 2 + 14%); width: calc(var(--disc) * 0.9); transform: translateX(-50%); background: linear-gradient(0deg, rgba(225, 252, 229, 0.95), rgba(170, 238, 182, 0.55) 35%, rgba(160, 235, 172, 0.25)); clip-path: polygon(0 0, 100% 0, 55% 100%, 45% 100%); filter: blur(4px); pointer-events: none; animation: beam 5s ease-in-out infinite; }
-/* The glow at the source, inside the wash bay */
-.hero-trailer::after { content: ""; position: absolute; z-index: 2; left: var(--src); top: 14%; width: 20%; aspect-ratio: 2 / 1; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(235, 255, 238, 0.95), rgba(160, 235, 172, 0.4) 55%, transparent); filter: blur(5px); pointer-events: none; }
+/* The beam: narrow where it leaves the base of the tipped can, opening out to the disc */
+.hero-beam { position: absolute; z-index: 2; left: var(--src); bottom: 92%; height: calc(var(--rise) - var(--disc) / 2 + 8%); width: calc(var(--disc) * 0.9); transform: translateX(-50%); background: linear-gradient(0deg, rgba(225, 252, 229, 0.95), rgba(170, 238, 182, 0.55) 35%, rgba(160, 235, 172, 0.25)); clip-path: polygon(0 0, 100% 0, 55% 100%, 45% 100%); filter: blur(4px); pointer-events: none; animation: beam 5s ease-in-out infinite; }
+/* The glow at the source, at the base of the can */
+.hero-trailer::after { content: ""; position: absolute; z-index: 2; left: var(--src); top: 8%; width: 20%; aspect-ratio: 2 / 1; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(235, 255, 238, 0.95), rgba(160, 235, 172, 0.4) 55%, transparent); filter: blur(5px); pointer-events: none; }
 @keyframes beam { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
 .hero-visual::before { content: ""; position: absolute; left: 8%; right: 8%; bottom: 3%; height: 11%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent); filter: blur(8px); }
 .hero-trailer > img { position: relative; z-index: 1; width: 100%; height: auto; display: block; filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.42)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.25)); }

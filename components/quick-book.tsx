@@ -45,7 +45,7 @@ export function QuickBook({
       zip: zip?.trim() || undefined,
       town,
       plan,
-      notes: `Tapped "Book now in Jobber" on the ${from}.`,
+      notes: `Tapped the quick "Book now" button on the ${from}.`,
     });
   }
 
@@ -70,7 +70,7 @@ export function QuickBook({
           <input autoComplete="tel" inputMode="email" value={contact} onChange={(e) => setContact(e.target.value)} />
         </label>
         <a className="btn" href={brand.bookingUrl} target="_blank" rel="noopener" data-event="book_click" onClick={notify}>
-          Book now in Jobber <ExternalLink aria-hidden size={17} />
+          Book now <ExternalLink aria-hidden size={17} />
         </a>
       </div>
     </div>

@@ -232,7 +232,7 @@ export function BookFunnel({ initialPlan, initialTown }: { initialPlan?: string;
             billing. It takes about a minute.
           </p>
           <a className="btn btn-lg funnel-jobber" href={brand.bookingUrl} target="_blank" rel="noopener" data-event="book_click">
-            Finish booking in Jobber <ExternalLink size={18} aria-hidden />
+            Finish booking <ExternalLink size={18} aria-hidden />
           </a>
           <p className="muted small funnel-alt">Can&apos;t use the scheduler right now?</p>
           <div className="row funnel-alt-row">

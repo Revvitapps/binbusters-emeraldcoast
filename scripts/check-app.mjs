@@ -96,7 +96,7 @@ try {
     await page.fill('input[autocomplete="street-address"]', "1 Test St");
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/funnel-details.png` });
     await page.getByRole("button", { name: "Request my clean" }).click();
-    await page.getByRole("link", { name: "Finish booking in Jobber" }).waitFor();
+    await page.getByRole("link", { name: "Finish booking" }).waitFor();
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/funnel-done.png` });
     // Ask drawer
     await ctx.close();
@@ -106,7 +106,7 @@ try {
     const ctx = await browser.newContext({ ...devices["iPhone 13"] });
     const page = await ctx.newPage();
     await page.goto(BASE + p, { waitUntil: "networkidle" });
-    const link = page.locator(".quick-book").getByRole("link", { name: "Book now in Jobber" });
+    const link = page.locator(".quick-book").getByRole("link", { name: "Book now" });
     if (!(await link.count())) {
       fail.push(`${p}: no quick book`);
       await ctx.close();

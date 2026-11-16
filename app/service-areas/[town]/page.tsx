@@ -34,7 +34,7 @@ function townFaqs(name: string, county: string) {
     },
     {
       q: `When do you come to ${name}?`,
-      a: `We schedule your clean for the day after your trash pickup so your bins are empty. Leave them at the curb; you don't need to be home.`,
+      a: `We clean on your trash day, right after pickup, while your bins are empty. Leave them at the curb; you don't need to be home.`,
     },
   ];
 }

@@ -13,7 +13,7 @@ export function GET() {
     `- Owner: ${brand.owner.name}, ${brand.owner.bio}`,
     `- Service area: ${towns.map((t) => t.name).join(", ")} (Okaloosa, Walton and Santa Rosa counties, Florida).`,
     `- Prices (1 bin included, $${brand.extraBinPrice} per extra bin): ${plans.map((p) => `${p.name} $${p.price} ${p.cadence}`).join("; ")}.`,
-    `- Scheduling: the day after trash pickup; customer does not need to be home.`,
+    `- Scheduling: on trash day, right after the bins are emptied; customer does not need to be home.`,
     `- Phone: ${brand.phone}`,
     `- Email: ${brand.email}`,
     `- Book online: ${brand.bookingUrl}`,

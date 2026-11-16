@@ -51,6 +51,9 @@ export default function Home() {
               <BookButton />
               <CallButton />
             </div>
+            <p className="hero-quick">
+              Know what you want? <a href="#quick-book">Book now in Jobber</a>
+            </p>
             <ul className="hero-badges">
               <li>
                 <Stars size={15} />
@@ -188,7 +191,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Pricing />
+      <Pricing quickFrom="home page" />
       <TownGrid />
 
       <FaqList items={faqs.slice(0, 6)} />

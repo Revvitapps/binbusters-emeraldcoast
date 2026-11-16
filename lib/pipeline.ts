@@ -3,7 +3,7 @@
 // and POSTs it to /api/pipeline, which forwards it to email and/or a webhook when configured.
 
 export type Lead = {
-  source: "book" | "rental" | "neighborhood" | "ask" | "zip-check";
+  source: "book" | "quick" | "rental" | "neighborhood" | "ask" | "zip-check";
   name?: string;
   phone?: string;
   email?: string;
@@ -54,8 +54,15 @@ export function smsHref(phoneE164: string, body: string) {
 }
 
 export function leadSummary(l: Lead) {
+  const quick = l.source === "quick";
   return [
-    `New request from the website (${l.source})`,
+    quick
+      ? "Someone tapped \"Book now in Jobber\" on the website. Their full request should also arrive in Jobber."
+      : `New request from the website (${l.source})`,
+    quick &&
+      (l.phone || l.email
+        ? "If nothing shows up in Jobber, follow up with the details below."
+        : "They left no contact details here, so check Jobber for their request."),
     l.name && `Name: ${l.name}`,
     l.phone && `Phone: ${l.phone}`,
     l.email && `Email: ${l.email}`,

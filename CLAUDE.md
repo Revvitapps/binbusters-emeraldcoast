@@ -14,7 +14,8 @@
 - 2026-11-12: After trying the beam from the wash bay and then from the base of the can, Matthew asked to take the logo and beam away altogether. The desktop hero is now the left-facing trailer on its own. The lit mascot and its beam remain only at 960px and below, as the phone hero backdrop he asked for earlier.
 - 2026-11-16: Matthew asked for a service-area map shaped like the Emerald Coast, as on his Gateway Payments site (`Revvitapps/gateway-pitch`). `components/service-map.tsx` draws the real coastline (GSHHS full resolution via `pip install basemap basemap-data-hires`, since Census/OSM hosts are blocked from the sandbox) with Census county lines; regenerate with `scripts/build-service-map.py`. It sits in the dark "Where we clean" section (home and town pages, current town in red) and on `/service-areas`.
 - 2026-11-09: Booking still finishes in Jobber (Jarrett's existing client hub). The funnel captures the request first (`/api/pipeline`) and offers a prefilled text to Jarrett so no lead depends on a backend.
-- DNS cutover not done yet: needs Matthew's go-ahead. Old values for rollback: `A @ 162.159.140.166`, `CNAME www sites.ludicrous.cloud`. New: `A @ 216.150.1.1`, `CNAME www cc53ae1b859741ae.vercel-dns-016.com`.
+- 2026-11-16: Quick booking. A "Book now in Jobber" card (`components/quick-book.tsx`) sits under the plans on home and `/pricing` (hero links to it) and on step 1 of `/book`. One tap opens Jobber and posts a `quick` lead (name and contact optional) so Jarrett gets a heads-up email. The last `/book` step now leads with "Finish booking in Jobber"; text and call are the fallback. `app/favicon.ico` is generated from the mascot by `npm run icons`.
+- 2026-11-16: DNS switched; the site is live on Vercel. Lead email goes through Jarrett's own Resend account (domain verified, sender leads@binbusters-emeraldcoast.com) to jarrett@binbusters-emeraldcoast.com; a live test lead arrived. Old values for rollback: `A @ 162.159.140.166`, `CNAME www sites.ludicrous.cloud`. New: `A @ 216.150.1.1`, `CNAME www cc53ae1b859741ae.vercel-dns-016.com`.
 
 ### Open questions for Jarrett
 1. Logo/mascot/photos: confirmed OK (Matthew, 2026-11-09). The trailer wrap shows (530) 228-7046, not (850) 396-2908: which number is current? Any new photos of his own?
@@ -30,7 +31,7 @@ Last audited 2026-11-09. Rerun `npm run build && npm run check:seo && npm run ch
 
 | Item | Status |
 |---|---|
-| Hosting / domains | Vercel project `binbusters-emeraldcoast` (Revvit Apps). Apex primary, www 308. DNS still points at GoHighLevel. |
+| Hosting / domains | Vercel project `binbusters-emeraldcoast` (Revvit Apps). Apex primary, www 308. DNS switched to Vercel 2026-11-16. |
 | Previews noindex | robots `Disallow: /` off production; `X-Robots-Tag: noindex` on `*.vercel.app` (verified on the vercel.app alias). |
 | robots / sitemap / llms.txt | Generated from `content/site.ts`; AI crawlers allowed. |
 | Titles / descriptions / headings | `check:seo` passing (24 static pages). |
@@ -39,5 +40,5 @@ Last audited 2026-11-09. Rerun `npm run build && npm run check:seo && npm run ch
 | GA4 | Not created yet (needs Jarrett's Google account). Tag ready via `NEXT_PUBLIC_GA_ID`; events: book_start, book_click, call_click, sms_click, email_click, review_click, generate_lead. |
 | IndexNow | Key file in `public/`; GitHub Action pings on production deploys. Not run yet (site not live). |
 | Search Console / Bing | Not set up (needs Jarrett's Google account and a DNS TXT). |
-| Email DNS | No MX/SPF/DMARC. Plan: Google Workspace Business Starter. |
+| Email DNS | Google Workspace MX/SPF/DKIM, Resend DKIM + send records, DMARC p=none (2026-11-16). |
 | Google Business Profile | Exists (5.0, 15 reviews), owned by Jarrett. Category should add bin cleaning; website should point to the new home page. |

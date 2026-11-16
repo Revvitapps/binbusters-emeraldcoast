@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Check, ChevronLeft, MapPin, MessageSquare, Minus, Phone, Plus } from "lucide-react";
+import { Check, ChevronLeft, ExternalLink, MapPin, MessageSquare, Minus, Phone, Plus } from "lucide-react";
 import { brand, plans, priceFor, serviceZips, towns } from "@/content/site";
 import { leadSummary, smsHref, upsertContact, type Lead } from "@/lib/pipeline";
+import { QuickBook } from "@/components/quick-book";
 
 type Step = 0 | 1 | 2 | 3 | 4;
 const STEP_NAMES = ["Your area", "How often", "How many bins", "Your details", "Done"];
@@ -131,6 +132,10 @@ export function BookFunnel({ initialPlan, initialTown }: { initialPlan?: string;
               Next
             </button>
           </div>
+          <div className="funnel-or" role="separator">
+            <span>or</span>
+          </div>
+          <QuickBook compact from="booking page" zip={zip} town={townName} plan={initialPlan ? planObj.name : undefined} />
         </section>
       )}
 
@@ -219,28 +224,23 @@ export function BookFunnel({ initialPlan, initialTown }: { initialPlan?: string;
 
       {step === 4 && (
         <section aria-labelledby="f4" className="done-step">
-          <h2 id="f4">{delivered ? "Got it. We'll be in touch." : "Almost done: confirm in our scheduler"}</h2>
+          <h2 id="f4">Last step: pick your date in Jobber</h2>
           <PriceLine plan={planObj.name} cadence={planObj.cadence} price={price} bins={bins} town={townName} />
-          {delivered ? (
-            <p>
-              Jarrett has your request and will confirm your first clean. To lock in a date now, finish in our secure scheduler
-              where you can also save your card.
-            </p>
-          ) : (
-            <p>
-              Finish in our secure scheduler to pick your start and save your card for billing. Prefer a text? Send us your
-              request in one tap.
-            </p>
-          )}
-          <div className="row">
-            <a className="btn" href={brand.bookingUrl} target="_blank" rel="noopener" data-event="book_click">
-              Open the scheduler
-            </a>
+          <p>
+            {delivered ? "Jarrett has your details. " : ""}
+            Your clean is booked once you finish in our secure Jobber scheduler: choose your first clean and save your card for
+            billing. It takes about a minute.
+          </p>
+          <a className="btn btn-lg funnel-jobber" href={brand.bookingUrl} target="_blank" rel="noopener" data-event="book_click">
+            Finish booking in Jobber <ExternalLink size={18} aria-hidden />
+          </a>
+          <p className="muted small funnel-alt">Can&apos;t use the scheduler right now?</p>
+          <div className="row funnel-alt-row">
             <a className="btn btn-ghost" href={smsHref(brand.phoneE164, leadSummary(lead))} data-event="sms_click">
               <MessageSquare size={18} aria-hidden /> Text my request
             </a>
             <a className="btn btn-ghost" href={`tel:${brand.phoneE164}`} data-event="call_click">
-              <Phone size={18} aria-hidden /> Call
+              <Phone size={18} aria-hidden /> Call {brand.phone}
             </a>
           </div>
         </section>

@@ -3,6 +3,7 @@ import { ServiceMap } from "./service-map";
 import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
 import { Logo, Mascot } from "@/components/logo";
 import { ReviewCarousel } from "@/components/review-carousel";
+import { QuickBook } from "@/components/quick-book";
 import { ArrowRight, Check, ChevronDown, Droplets, MapPin, MousePointerClick, Phone, Sparkles, Star as StarIcon } from "lucide-react";
 
 const tel = `tel:${brand.phoneE164}`;
@@ -72,7 +73,7 @@ export function Stars({ size = 16 }: { size?: number }) {
   );
 }
 
-export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
+export function Pricing({ headingLevel = 2, quickFrom }: { headingLevel?: 2 | 3; quickFrom?: string }) {
   const H = `h${headingLevel}` as "h2" | "h3";
   const Sub = `h${headingLevel + 1}` as "h3" | "h4";
   return (
@@ -99,6 +100,7 @@ export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
             </div>
           ))}
         </div>
+        {quickFrom && <QuickBook from={quickFrom} id="quick-book" />}
       </div>
     </section>
   );

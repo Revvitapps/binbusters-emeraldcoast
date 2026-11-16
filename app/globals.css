@@ -247,10 +247,63 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
 .towns a { display: flex; align-items: center; gap: 10px; min-height: 52px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 16px; text-decoration: none; font-weight: 600; color: var(--ink); transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease; }
 .towns a svg { color: var(--green-deep); }
 .towns a:hover { border-color: var(--ink); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.areas-map { margin-bottom: clamp(40px, 5vw, 64px); }
+.areas-map .smap { margin-top: 0; }
 .county { margin-bottom: 44px; }
 .county:last-child { margin-bottom: 0; }
 .county h2 { font-size: 1.35rem; }
 .county .towns { margin-top: 16px; }
+
+/* ---- Service-area map (components/service-map.tsx): the real coastline, Navarre to Sandestin ---- */
+.section.night { background: radial-gradient(60% 80% at 50% 0%, rgba(69, 177, 83, 0.1), transparent 70%), var(--night); color: var(--on-night-muted); }
+.section.night h2, .section.night h3 { color: #fff; }
+.section.night .eyebrow { color: var(--green-on-night); }
+.section.night .lede { color: var(--on-night-muted); }
+.smap { margin: clamp(26px, 4vw, 44px) 0 0; border: 1px solid var(--night-line); border-radius: var(--radius); background: #08100d; overflow: hidden; }
+.smap-svg { display: block; width: 100%; height: auto; }
+.smap-land { fill: #17231f; stroke: rgba(127, 220, 139, 0.55); stroke-width: 1.1; stroke-linejoin: round; }
+.smap-county { fill: none; stroke: rgba(241, 244, 242, 0.22); stroke-width: 1.1; stroke-dasharray: 5 6; }
+.smap-place text { font-family: var(--font-mono), ui-monospace, monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; fill: rgba(241, 244, 242, 0.34); }
+.smap-place .smap-water { font-family: var(--font-display), system-ui, sans-serif; font-style: italic; font-size: 14px; letter-spacing: 0.08em; text-transform: none; fill: rgba(127, 220, 139, 0.42); }
+.smap-town, .smap-home { cursor: pointer; animation: smap-in 0.5s ease both; }
+.smap-town line, .smap-home line { stroke: var(--green-on-night); stroke-width: 1.1; opacity: 0.4; }
+.smap-town circle, .smap-home circle { fill: var(--green); stroke: #08100d; stroke-width: 2; transition: r 0.15s ease, fill 0.15s ease; }
+.smap .smap-hit { fill: transparent; stroke: none; }
+.smap-town text, .smap-home text { paint-order: stroke; stroke: #08100d; stroke-width: 5px; stroke-linejoin: round; }
+.smap-town text { font-family: var(--font-mono), ui-monospace, monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; fill: #e3ebe6; transition: fill 0.15s ease; }
+.smap-town:hover text, .smap-town:focus-visible text, .smap-town.is-active text { fill: var(--green-on-night); }
+.smap-town:hover circle:not(.smap-hit), .smap-town:focus-visible circle:not(.smap-hit) { fill: var(--green-hover); r: 7px; }
+.smap-town:focus-visible, .smap-home:focus-visible { outline: none; }
+.smap-home-name { font-family: var(--font-display), system-ui, sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; fill: #fff; }
+.smap-home-tag { font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; fill: var(--green-on-night); }
+.smap-home:hover .smap-home-name, .smap-home:focus-visible .smap-home-name { fill: var(--green-on-night); }
+.smap-home circle:not(.smap-hit):not(.smap-ping) { fill: var(--red); stroke: #fff; stroke-width: 2.5; }
+.smap-ping { fill: none !important; stroke: var(--red) !important; stroke-width: 2 !important; transform-box: fill-box; transform-origin: center; animation: smap-ping 2.4s ease-out infinite; }
+/* On a town page, that town lights up red and the rest step back */
+.smap.has-active .smap-town:not(.is-active) { opacity: 0.62; }
+.smap .smap-town.is-active circle:not(.smap-hit) { fill: var(--red); stroke: #fff; stroke-width: 2.5; }
+.smap .smap-town.is-active text { fill: #fff; }
+.smap-cap { padding: 12px 18px; border-top: 1px solid var(--night-line); font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.74rem; letter-spacing: 0.08em; color: var(--on-night-muted); }
+@keyframes smap-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes smap-ping { from { transform: scale(1); opacity: 0.9; } to { transform: scale(3.4); opacity: 0; } }
+.section.night .towns a { background: var(--night-2); border-color: var(--night-line); color: #fff; }
+.section.night .towns a svg { color: var(--green-on-night); }
+.section.night .towns a:hover { border-color: var(--green-on-night); box-shadow: none; }
+/* A phone shows the map at about a third of its drawn size, so the type is scaled up and the
+   smaller towns keep their dots but lose their names (the list below names every town). */
+.smap .for-phone { display: none; }
+@media (max-width: 760px) {
+  .smap-town.is-minor:not(.is-active) text, .smap-town.is-minor:not(.is-active) line { display: none; }
+  .smap .for-wide { display: none; }
+  .smap .for-phone { display: inline; }
+  .smap-town text { font-size: 34px; letter-spacing: 0.02em; stroke-width: 8px; }
+  .smap-home-name { font-size: 46px; }
+  .smap-home-tag { font-size: 20px; }
+  .smap-place text { font-size: 20px; letter-spacing: 0.12em; }
+  .smap-place .smap-water { display: none; }
+  .smap-town circle:not(.smap-hit) { r: 8px; }
+  .smap-home circle:not(.smap-hit) { r: 11px; }
+}
 
 /* FAQ */
 .faqs { margin-top: 28px; border-top: 1px solid var(--line); }

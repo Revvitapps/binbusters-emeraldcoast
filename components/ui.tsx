@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ServiceMap } from "./service-map";
 import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
 import { Logo, Mascot } from "@/components/logo";
 import { ReviewCarousel } from "@/components/review-carousel";
@@ -157,11 +158,12 @@ export function FaqList({ items = allFaqs, headingLevel = 2, title = "Questions 
 export function TownGrid({ headingLevel = 2, exclude }: { headingLevel?: 2 | 3; exclude?: string }) {
   const H = `h${headingLevel}` as "h2" | "h3";
   return (
-    <section className="section alt" aria-labelledby="areas-h">
+    <section className="section night areas" aria-labelledby="areas-h">
       <div className="wrap">
         <p className="eyebrow">Service area</p>
         <H id="areas-h">{exclude ? "Other towns we serve" : "Where we clean"}</H>
-        <p className="lede">Okaloosa, Walton and Santa Rosa counties on Florida's Emerald Coast.</p>
+        <p className="lede">Navarre to Sandestin: Okaloosa, Walton and Santa Rosa counties on Florida's Emerald Coast.</p>
+        <ServiceMap active={exclude} />
         <ul className="towns">
           {towns
             .filter((t) => t.slug !== exclude)

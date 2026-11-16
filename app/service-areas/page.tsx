@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { towns } from "@/content/site";
 import { Breadcrumbs, CtaBand } from "@/components/ui";
+import { ServiceMap } from "@/components/service-map";
 import { JsonLd, breadcrumbNode, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -28,6 +29,9 @@ export default function Areas() {
       </section>
       <section className="section">
         <div className="wrap">
+          <div className="areas-map">
+            <ServiceMap />
+          </div>
           {counties.map((c) => (
             <div key={c} className="county">
               <h2>{c} County</h2>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Offline | Bin Busters of the Emerald Coast</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#111;color:#fff;min-height:100vh;display:grid;place-items:center;padding:24px;box-sizing:border-box;text-align:center}
+  .card{max-width:420px}
+  img{width:72px;height:72px;border-radius:16px}
+  h1{font-size:1.6rem;margin:16px 0 8px}
+  p{color:#ccc;line-height:1.5}
+  a.btn{display:block;margin:12px 0;padding:14px 18px;border-radius:999px;background:#bd1e2c;color:#fff;text-decoration:none;font-weight:700}
+  a.alt{background:transparent;border:2px solid #45b153}
+  #draft{margin-top:16px;padding:12px;border:1px solid #333;border-radius:12px;text-align:left;font-size:.95rem;display:none;white-space:pre-line}
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="/pwa/icon-192.png" alt="Bin Busters">
+  <h1>You're offline</h1>
+  <p>No signal right now. You can still reach us directly:</p>
+  <a class="btn" href="tel:+18503962908">Call (850) 396-2908</a>
+  <a class="btn alt" href="sms:+18503962908">Text us</a>
+  <a class="btn alt" href="mailto:jarrettgordon8@gmail.com">jarrettgordon8@gmail.com</a>
+  <div id="draft"></div>
+</div>
+<script>
+  try {
+    var d = JSON.parse(localStorage.getItem("bb.draft") || "null");
+    if (d && d.plan) {
+      var el = document.getElementById("draft");
+      el.style.display = "block";
+      el.textContent = "Your saved request: " + d.plan + " clean, " + (d.bins || 1) + " bin(s)" + (d.zip ? ", ZIP " + d.zip : "") + ". It will be waiting when you're back online.";
+    }
+  } catch (e) {}
+</script>
+</body>
+</html>

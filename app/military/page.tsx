@@ -12,7 +12,7 @@ export const metadata = pageMeta({
 const qs = [
   {
     q: "Can you clean our bins before we PCS out?",
-    a: `Yes. Book a one-time clean ($${plans[2].price} for 1 bin) for the day after your last trash pickup, so the bins are clean when you hand the house back.`,
+    a: `Yes. Book a one-time clean ($${plans[2].price} for 1 bin) for your last trash day, right after pickup, so the bins are clean when you hand the house back.`,
   },
   {
     q: "We just moved in and the bins are gross. Can you help?",

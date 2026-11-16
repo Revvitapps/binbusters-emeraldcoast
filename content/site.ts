@@ -56,7 +56,7 @@ export const plans: Plan[] = [
     price: 20,
     cadence: "per month",
     unit: "MON",
-    summary: "Your bin cleaned every month, the day after trash pickup. Best for families and hot summer months.",
+    summary: "Your bin cleaned every month, on trash day, right after pickup. Best for families and hot summer months.",
     popular: true,
   },
   {
@@ -196,7 +196,7 @@ export const steps = [
   },
   {
     title: "We clean",
-    body: "The day after your trash pickup, our trailer washes each bin inside and out with pressurized water over 200°F, killing about 99% of bacteria. Just leave them at the curb.",
+    body: "On your trash day, right after pickup, our trailer washes each bin inside and out with pressurized water over 200°F, killing about 99% of bacteria. Just leave them at the curb.",
   },
   {
     title: "Clean bins",
@@ -236,7 +236,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Do I need to empty my bins before you arrive?",
-    a: "Your bins should be empty, so we come the day after trash pickup. If you have to put garbage in before we arrive, bag it and we will take it out and put it back after cleaning.",
+    a: "Your bins should be empty, so we come on trash day, right after the truck empties them. If garbage goes in before we arrive, bag it and we will take it out and put it back after cleaning.",
   },
   {
     q: "How do you clean the bins?",

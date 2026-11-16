@@ -15,7 +15,7 @@ export default function Terms() {
         <p className="muted">Last updated November 9, 2026</p>
         <h2>Service</h2>
         <p>
-          We clean residential trash and recycling bins at the curb on the day after your scheduled trash pickup. Bins should be
+          We clean residential trash and recycling bins at the curb on your scheduled trash day, after the bins have been emptied. Bins should be
           empty and accessible. If garbage is in the bin, please bag it; we will remove it and put it back after cleaning.
         </p>
         <h2>Billing</h2>

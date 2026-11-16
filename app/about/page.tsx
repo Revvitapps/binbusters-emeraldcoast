@@ -31,7 +31,7 @@ export default function About() {
           <h2>How we work</h2>
           <p>
             We use a custom trailer that washes each bin with pressurized water over 200°F, then deodorize it with an
-            eco-friendly product. We show up the day after trash pickup, so you never have to be home.
+            eco-friendly product. We show up on trash day, right after pickup, so you never have to be home.
           </p>
           <p>
             Sign-up, scheduling, reminders and billing are all handled online, and you can always reach us at{" "}

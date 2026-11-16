@@ -38,7 +38,7 @@ const topics: { label: string; items: Node[] }[] = [
       },
       {
         q: "Can my neighbors and I sign up together?",
-        a: "Yes. Each home books its own plan, and we clean the whole street on the same route the day after pickup.",
+        a: "Yes. Each home books its own plan, and we clean the whole street on the same route on trash day, right after pickup.",
         cta: { href: "/neighborhoods", label: "Neighborhoods" },
       },
     ],

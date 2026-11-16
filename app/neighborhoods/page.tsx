@@ -7,14 +7,14 @@ import { JsonLd, breadcrumbNode, faqNode, pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Neighborhood & HOA Bin Cleaning",
   description:
-    "Get your street or HOA on one bin-cleaning day. Each home books its own plan from $20/month and we clean the whole neighborhood the day after pickup.",
+    "Get your street or HOA on one bin-cleaning day. Each home books its own plan from $20/month and we clean the whole neighborhood on trash day, right after pickup.",
   path: "/neighborhoods",
 });
 
 const qs = [
   {
     q: "How does a neighborhood sign-up work?",
-    a: "Each household books its own plan and pays for its own bins. We put the whole street on one route and clean everyone's bins the day after trash pickup.",
+    a: "Each household books its own plan and pays for its own bins. We put the whole street on one route and clean everyone's bins on trash day, right after pickup.",
   },
   {
     q: "Can an HOA share this with residents?",

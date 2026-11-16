@@ -52,7 +52,7 @@ export default function Home() {
               <CallButton />
             </div>
             <p className="hero-quick">
-              Know what you want? <a href="#quick-book">Book now in Jobber</a>
+              Know what you want? <a href="#quick-book">Book now</a>
             </p>
             <ul className="hero-badges">
               <li>

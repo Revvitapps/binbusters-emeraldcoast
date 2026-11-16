@@ -57,7 +57,7 @@ export function leadSummary(l: Lead) {
   const quick = l.source === "quick";
   return [
     quick
-      ? "Someone tapped \"Book now in Jobber\" on the website. Their full request should also arrive in Jobber."
+      ? "Someone tapped the quick \"Book now\" button on the website. Their full request should also arrive in Jobber."
       : `New request from the website (${l.source})`,
     quick &&
       (l.phone || l.email

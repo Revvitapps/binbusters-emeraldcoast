@@ -32,7 +32,7 @@ try {
   // 1. Routes
   const sitemap = await (await fetch(`${BASE}/sitemap.xml`)).text();
   const paths = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+([^<]*)<\/loc>/g)].map((m) => m[1] || "/");
-  const extra = ["/book", "/book?plan=one-time", "/review", "/robots.txt", "/llms.txt", "/manifest.webmanifest", "/sw.js", "/offline.html", "/og?title=Test", "/pwa/icon-512.png"];
+  const extra = ["/book", "/book?plan=one-time", "/review", "/robots.txt", "/llms.txt", "/manifest.webmanifest", "/sw.js", "/offline.html", "/og?title=Test", "/pwa/icon-512.png", "/favicon.ico"];
   for (const p of [...paths, ...extra]) {
     const r = await fetch(BASE + p);
     if (r.status !== 200) fail.push(`route ${p} -> ${r.status}`);
@@ -46,6 +46,8 @@ try {
   if (!api.ok) fail.push(`api/pipeline -> ${api.status}`);
   const bad = await fetch(`${BASE}/api/pipeline`, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
   if (bad.status !== 422) fail.push(`api/pipeline accepted empty lead (${bad.status})`);
+  const quick = await fetch(`${BASE}/api/pipeline`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source: "quick", notes: "test" }) });
+  if (!quick.ok) fail.push(`api/pipeline rejected a quick book without contact (${quick.status})`);
 
   const browser = await chromium.launch();
   const axeSrc = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
@@ -94,11 +96,34 @@ try {
     await page.fill('input[autocomplete="street-address"]', "1 Test St");
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/funnel-details.png` });
     await page.getByRole("button", { name: "Request my clean" }).click();
-    await page.getByRole("link", { name: "Open the scheduler" }).waitFor();
+    await page.getByRole("link", { name: "Finish booking in Jobber" }).waitFor();
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/funnel-done.png` });
     // Ask drawer
     await ctx.close();
   }
+  // Quick book: on home, pricing and /book step 1; one tap opens Jobber and sends a "quick" lead.
+  for (const p of ["/", "/pricing", "/book"]) {
+    const ctx = await browser.newContext({ ...devices["iPhone 13"] });
+    const page = await ctx.newPage();
+    await page.goto(BASE + p, { waitUntil: "networkidle" });
+    const link = page.locator(".quick-book").getByRole("link", { name: "Book now in Jobber" });
+    if (!(await link.count())) {
+      fail.push(`${p}: no quick book`);
+      await ctx.close();
+      continue;
+    }
+    if (!(await link.getAttribute("href"))?.includes("clienthub.getjobber.com")) fail.push(`${p}: quick book does not point to Jobber`);
+    await page.locator(".quick-book").getByLabel(/Phone or email/).fill("8505550100");
+    const [req] = await Promise.all([
+      page.waitForRequest((r) => r.url().endsWith("/api/pipeline") && r.method() === "POST"),
+      ctx.waitForEvent("page"),
+      link.click(),
+    ]);
+    const body = req.postDataJSON();
+    if (body.source !== "quick" || body.phone !== "8505550100") fail.push(`${p}: quick book sent ${JSON.stringify(body)}`);
+    await ctx.close();
+  }
+  log("quick book: done");
   {
     const ctx = await browser.newContext({ ...devices["iPhone 13"] });
     const page = await ctx.newPage();

@@ -22,7 +22,7 @@ export default function PricingPage() {
           </p>
         </div>
       </section>
-      <Pricing />
+      <Pricing quickFrom="pricing page" />
       <FaqList items={priceFaqs} title="Pricing questions" />
       <CtaBand />
       <JsonLd nodes={[breadcrumbNode([{ name: "Pricing", path: "/pricing" }]), faqNode(priceFaqs, "/pricing")]} />

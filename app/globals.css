@@ -529,3 +529,29 @@ a.need:hover, button.need:hover { border-color: var(--ink); transform: translate
   .rating strong { font-size: 2.3rem; }
   .vet-stats span { max-width: 14ch; }
 }
+
+/* ---- Quick book in Jobber (home, pricing, /book step 1) ---- */
+.quick-book { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px 36px; align-items: center; margin-top: 28px; scroll-margin-top: 96px; }
+.quick-book.card { border-color: var(--green); background: linear-gradient(180deg, #fbfefb, #fff); }
+.quick-book-title { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); }
+.quick-book-title svg { color: var(--green-deep); }
+.quick-book-copy .muted { margin: 0; }
+.quick-book-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.quick-book-form .btn { grid-column: 1 / -1; width: 100%; }
+.quick-book.compact { grid-template-columns: 1fr; gap: 14px; margin-top: 0; }
+.quick-book.compact .quick-book-title { font-size: 1.08rem; }
+.funnel-or { display: flex; align-items: center; gap: 14px; margin: 28px 0 22px; color: var(--muted); font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; }
+.funnel-or::before, .funnel-or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.funnel-jobber { width: 100%; margin: 4px 0 0; }
+.funnel-alt { margin: 22px 0 0; }
+.funnel-alt-row { margin: 10px 0 0; }
+.hero-quick { margin: -6px 0 22px; color: var(--on-night-muted); font-size: 0.95rem; }
+.hero-quick a { color: var(--green-on-night); font-weight: 600; }
+.hero-quick a:hover { color: #fff; }
+@media (max-width: 860px) {
+  .quick-book { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .quick-book-form { grid-template-columns: 1fr; }
+  .funnel-alt-row .btn { flex: 1 1 100%; }
+}

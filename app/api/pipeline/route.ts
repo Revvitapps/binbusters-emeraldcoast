@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     return Response.json({ ok: false, error: "bad json" }, { status: 400 });
   }
   const lead: Lead = {
-    source: (["book", "rental", "neighborhood", "ask", "zip-check"].includes(String(body.source))
+    source: (["book", "quick", "rental", "neighborhood", "ask", "zip-check"].includes(String(body.source))
       ? body.source
       : "book") as Lead["source"],
     name: clean(body.name, 120),
@@ -30,7 +30,8 @@ export async function POST(req: Request) {
     notes: clean(body.notes, 1000),
     at: new Date().toISOString(),
   };
-  if (!lead.phone && !lead.email && lead.source !== "zip-check") {
+  // A quick book is a heads-up that someone went to Jobber, so contact details are optional there.
+  if (!lead.phone && !lead.email && lead.source !== "zip-check" && lead.source !== "quick") {
     return Response.json({ ok: false, error: "phone or email required" }, { status: 422 });
   }
 
@@ -46,7 +47,10 @@ export async function POST(req: Request) {
           from: process.env.LEAD_EMAIL_FROM || "Bin Busters website <onboarding@resend.dev>",
           to: process.env.LEAD_EMAIL_TO.split(",").map((s) => s.trim()),
           reply_to: lead.email || undefined,
-          subject: `New ${lead.source} request${lead.town ? ` in ${lead.town}` : ""}${lead.name ? ` from ${lead.name}` : ""}`,
+          subject:
+            lead.source === "quick"
+              ? `Booking started in Jobber${lead.name ? ` by ${lead.name}` : ""}${lead.town ? ` (${lead.town})` : ""}`
+              : `New ${lead.source} request${lead.town ? ` in ${lead.town}` : ""}${lead.name ? ` from ${lead.name}` : ""}`,
           text,
         }),
       })

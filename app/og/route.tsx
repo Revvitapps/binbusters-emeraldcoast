@@ -21,7 +21,7 @@ export async function GET(req: Request) {
           <div style={{ display: "flex", fontSize: 28, color: "#7fdc8b" }}>Veteran-owned · From $20/month · {brand.phone}</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
-          <img src={mascot} width={340} height={346} alt="" />
+          <img src={mascot} width={340} height={324} alt="" />
         </div>
       </div>
     ),

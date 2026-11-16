@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Lato, Montserrat } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, Public_Sans } from "next/font/google";
 import { brand, siteUrl } from "@/content/site";
 import { Footer, Header } from "@/components/ui";
 import { Analytics } from "@/components/analytics";
@@ -9,9 +9,10 @@ import { InstallPrompt, Pwa } from "@/components/pwa";
 import { JsonLd, siteGraph } from "@/lib/seo";
 import "./globals.css";
 
-// Montserrat (headings) and Lato (body) match the fonts on the original Bin Busters site.
-const display = Montserrat({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display", display: "swap" });
-const body = Lato({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-body", display: "swap" });
+// Archivo (headings), Public Sans (body) and IBM Plex Mono (labels): a sober, trade-service type system.
+const display = Archivo({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-display", display: "swap" });
+const body = Public_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body", display: "swap" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["500"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111111",
+  themeColor: "#0c1311",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // GA4 loads on Vercel production only; previews stay silent.
   const gaId = isProd ? process.env.NEXT_PUBLIC_GA_ID : undefined;
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <a href="#main" className="skip">
           Skip to content

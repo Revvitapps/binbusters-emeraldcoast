@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { brand, faqs as allFaqs, plans, reviewSummary, reviewUrl, reviews, steps, towns, type Faq } from "@/content/site";
-import Image from "next/image";
-import { Logo } from "@/components/logo";
+import { Logo, Mascot } from "@/components/logo";
 import { ReviewCarousel } from "@/components/review-carousel";
+import { ArrowRight, Check, ChevronDown, Droplets, MapPin, MousePointerClick, Phone, Sparkles, Star as StarIcon } from "lucide-react";
 
 const tel = `tel:${brand.phoneE164}`;
 
@@ -20,6 +20,7 @@ function HeaderBar() {
     <header className="site-header">
       <div className="wrap header-row">
         <Link href="/" className="logo" aria-label={`${brand.name} home`}>
+          <Mascot size={46} priority className="logo-mascot" />
           <Logo priority />
         </Link>
         <nav aria-label="Main" className="nav">
@@ -30,7 +31,10 @@ function HeaderBar() {
           <Link href="/contact">Contact</Link>
         </nav>
         <div className="header-cta">
-          <a href={tel} className="phone">{brand.phone}</a>
+          <a href={tel} className="phone" data-event="call_click">
+            <Phone aria-hidden size={16} />
+            {brand.phone}
+          </a>
           <BookButton small />
         </div>
       </div>
@@ -50,8 +54,20 @@ export function BookButton({ small, label = "Book a cleaning", href = "/book" }:
 export function CallButton() {
   return (
     <a href={tel} className="btn btn-ghost" data-event="call_click">
+      <Phone aria-hidden size={18} />
       Call {brand.phone}
     </a>
+  );
+}
+
+/** Five gold stars as icons (decorative; the rating is always stated in text next to them). */
+export function Stars({ size = 16 }: { size?: number }) {
+  return (
+    <span className="stars" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((k) => (
+        <StarIcon key={k} size={size} fill="currentColor" strokeWidth={0} />
+      ))}
+    </span>
   );
 }
 
@@ -61,8 +77,9 @@ export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
   return (
     <section className="section" aria-labelledby="pricing-h">
       <div className="wrap">
+        <p className="eyebrow">Pricing</p>
         <H id="pricing-h">Simple pricing</H>
-        <p className="lede">Each price includes 1 bin. Extra bins are ${brand.extraBinPrice} each.</p>
+        <p className="lede">Each price includes 1 bin. Extra bins are ${brand.extraBinPrice} each. No contracts.</p>
         <div className="cards">
           {plans.map((p) => (
             <div key={p.id} className={p.popular ? "card plan featured" : "card plan"}>
@@ -71,8 +88,12 @@ export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
               <p className="price">
                 <span>${p.price}</span> {p.cadence}
               </p>
-              <p>{p.summary}</p>
-              <p className="muted">+${brand.extraBinPrice} each additional bin</p>
+              <p className="plan-summary">{p.summary}</p>
+              <ul className="plan-list">
+                <li><Check aria-hidden size={16} /> 1 bin included</li>
+                <li><Check aria-hidden size={16} /> +${brand.extraBinPrice} each additional bin</li>
+                <li><Check aria-hidden size={16} /> Sanitized and deodorized</li>
+              </ul>
               <BookButton label={`Book ${p.name.toLowerCase()}`} href={`/book?plan=${p.id}`} />
             </div>
           ))}
@@ -82,21 +103,27 @@ export function Pricing({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
   );
 }
 
+const stepIcons = [MousePointerClick, Droplets, Sparkles];
+
 export function Steps({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
   const H = `h${headingLevel}` as "h2" | "h3";
   const Sub = `h${headingLevel + 1}` as "h3" | "h4";
   return (
     <section className="section alt" aria-labelledby="how-h">
       <div className="wrap">
+        <p className="eyebrow">The process</p>
         <H id="how-h">How it works</H>
         <ol className="steps">
-          {steps.map((s) => (
+          {steps.map((s, i) => {
+            const Icon = stepIcons[i % stepIcons.length];
+            return (
             <li key={s.title}>
-              <Image src={s.image} alt="" width={s.w} height={s.h} />
+              <span className="step-icon"><Icon aria-hidden size={24} /></span>
               <Sub>{s.title}</Sub>
               <p>{s.body}</p>
             </li>
-          ))}
+            );
+          })}
         </ol>
       </div>
     </section>
@@ -109,12 +136,14 @@ export function FaqList({ items = allFaqs, headingLevel = 2, title = "Questions 
   return (
     <section className="section" aria-labelledby="faq-h">
       <div className="wrap narrow">
+        <p className="eyebrow">Answers</p>
         <H id="faq-h">{title}</H>
         <div className="faqs">
           {items.map((f) => (
             <details key={f.q}>
               <summary>
                 <Sub>{f.q}</Sub>
+                <ChevronDown aria-hidden size={20} />
               </summary>
               <p>{f.a}</p>
             </details>
@@ -130,6 +159,7 @@ export function TownGrid({ headingLevel = 2, exclude }: { headingLevel?: 2 | 3; 
   return (
     <section className="section alt" aria-labelledby="areas-h">
       <div className="wrap">
+        <p className="eyebrow">Service area</p>
         <H id="areas-h">{exclude ? "Other towns we serve" : "Where we clean"}</H>
         <p className="lede">Okaloosa, Walton and Santa Rosa counties on Florida's Emerald Coast.</p>
         <ul className="towns">
@@ -137,7 +167,10 @@ export function TownGrid({ headingLevel = 2, exclude }: { headingLevel?: 2 | 3; 
             .filter((t) => t.slug !== exclude)
             .map((t) => (
               <li key={t.slug}>
-                <Link href={`/service-areas/${t.slug}`}>{t.name}</Link>
+                <Link href={`/service-areas/${t.slug}`}>
+                  <MapPin aria-hidden size={16} />
+                  {t.name}
+                </Link>
               </li>
             ))}
         </ul>
@@ -150,15 +183,16 @@ export function CtaBand() {
   return (
     <section className="cta-band">
       <div className="wrap cta-grid">
-        <Image src="/brand/mascot.png" alt="" width={180} height={183} className="cta-mascot" loading="eager" />
         <div>
+          <p className="eyebrow">Veteran-owned · {reviewSummary.rating} on Google</p>
           <h2>Ready for clean, fresh-smelling bins?</h2>
           <p>Book online in two minutes, or call and we will set you up.</p>
-          <div className="row">
-            <BookButton />
-            <CallButton />
-          </div>
         </div>
+        <div className="row">
+          <BookButton />
+          <CallButton />
+        </div>
+        <Mascot size={150} sticker className="cta-mascot" />
       </div>
     </section>
   );
@@ -184,9 +218,10 @@ export function Footer() {
       <div className="wrap footer-grid">
         <div>
           <p className="footer-logo">
-            <Logo height={56} />
+            <Logo height={52} onDark />
+            <Mascot size={64} sticker className="footer-mascot" />
           </p>
-          <p><strong className="footer-vet">★ Veteran-owned &amp; operated</strong><br />Family-run trash can cleaning on Florida's Emerald Coast, owned by a 20-year U.S. Air Force veteran.</p>
+          <p><strong className="footer-vet">Veteran-owned &amp; operated</strong><br />Family-run trash can cleaning on Florida's Emerald Coast, owned by a 20-year U.S. Air Force veteran.</p>
           <p>
             <a href={tel}>{brand.phone}</a>
             <br />
@@ -244,12 +279,11 @@ export function VeteranRibbon() {
   return (
     <div className="vet-ribbon">
       <div className="wrap">
-        <Star size={16} />
+        <Star size={12} />
         <span>
           <strong>Veteran-owned &amp; operated</strong>
           <span className="vet-ribbon-more"> · 20 years U.S. Air Force · Proud neighbors of Eglin AFB &amp; Hurlburt Field</span>
         </span>
-        <Star size={16} />
       </div>
     </div>
   );
@@ -259,10 +293,8 @@ export function VeteranRibbon() {
 export function VeteranBadge() {
   return (
     <p className="vet-badge">
-      <Star size={22} />
-      <span>
-        Veteran-owned
-      </span>
+      <Star size={14} />
+      <span>Veteran-owned</span>
     </p>
   );
 }
@@ -275,7 +307,7 @@ export function VeteranSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
       <div className="wrap vet-grid">
         <div>
           <p className="vet-kicker">
-            <Star size={18} /> Veteran-owned &amp; operated
+            <Star size={14} /> Veteran-owned &amp; operated
           </p>
           <H id="vet-h">He served 20 years. Now he serves the Emerald Coast.</H>
           <p>
@@ -313,16 +345,23 @@ export function Reviews({ headingLevel = 2, limit = 6 }: { headingLevel?: 2 | 3;
     <section className="section reviews" aria-labelledby="reviews-h">
       <div className="wrap">
         <div className="reviews-head">
-          <H id="reviews-h">What our customers say</H>
+          <div>
+            <p className="eyebrow">Google reviews</p>
+            <H id="reviews-h">What our customers say</H>
+          </div>
           <p className="rating">
-            <span className="stars" aria-hidden="true">★★★★★</span>
-            <strong>{reviewSummary.rating}</strong> on Google · {reviewSummary.count} reviews
+            <strong>{reviewSummary.rating}</strong>
+            <span>
+              <Stars size={18} />
+              <small>{reviewSummary.count} reviews on Google</small>
+            </span>
           </p>
         </div>
         <ReviewCarousel reviews={reviews.slice(0, limit)} />
         <div className="row">
           <a className="btn btn-ghost" href={brand.googleBusinessProfile} target="_blank" rel="noopener">
             Read all reviews on Google
+            <ArrowRight aria-hidden size={18} />
           </a>
           <a className="link-btn" href={reviewUrl} target="_blank" rel="noopener">
             Already a customer? Leave a review

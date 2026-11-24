@@ -256,8 +256,6 @@ export const faqs: Faq[] = [
   },
 ];
 
-export const lastUpdated = "2026-11-09";
-
 /** ZIP codes that cover our towns. A ZIP not listed here is not a "no": the funnel asks people to call. */
 export const serviceZips: Record<string, string[]> = {
   "32547": ["fort-walton-beach", "wright"],

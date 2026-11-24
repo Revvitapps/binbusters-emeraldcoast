@@ -18,6 +18,8 @@
 - 2026-11-18: The hero trailer photo now reads 850-396-2908. The digits were rebuilt from the photo's own glyphs (a 9 is the 6 turned over), and the blacks and tires were deepened so it looks newer. See `scripts/trailer-swap-number.py` and `scripts/trailer-deepen-blacks.py` (run in that order on the 530 original from git history); the AI-made 850 version on static.magica.com could not be downloaded.
 - 2026-11-16: DNS switched; the site is live on Vercel. Lead email goes through Jarrett's own Resend account (domain verified, sender leads@binbusters-emeraldcoast.com) to jarrett@binbusters-emeraldcoast.com; a live test lead arrived. Old values for rollback: `A @ 162.159.140.166`, `CNAME www sites.ludicrous.cloud`. New: `A @ 216.150.1.1`, `CNAME www cc53ae1b859741ae.vercel-dns-016.com`.
 
+- 2026-11-24: SEO scorecard fixes. The sitemap no longer stamps one shared lastmod on every URL. Opening hours are still not in the LocalBusiness schema: they wait on question 5 below.
+
 ### Open questions for Jarrett
 1. Logo/mascot/photos: confirmed OK (Matthew, 2026-11-09). The trailer photo now shows (850) 396-2908 (edited 2026-11-18); does the real wrap still say (530)? Any new photos of his own?
 2. Where should web leads go: email (which address), text, or straight into Jobber?
@@ -34,7 +36,7 @@ Last audited 2026-11-09. Rerun `npm run build && npm run check:seo && npm run ch
 |---|---|
 | Hosting / domains | Vercel project `binbusters-emeraldcoast` (Revvit Apps). Apex primary, www 308. DNS switched to Vercel 2026-11-16. |
 | Previews noindex | robots `Disallow: /` off production; `X-Robots-Tag: noindex` on `*.vercel.app` (verified on the vercel.app alias). |
-| robots / sitemap / llms.txt | Generated from `content/site.ts`; AI crawlers allowed. |
+| robots / sitemap / llms.txt | Generated from `content/site.ts`; AI crawlers allowed. Sitemap URLs carry no lastmod (2026-11-24: the one shared date was dropped). |
 | Titles / descriptions / headings | `check:seo` passing (24 static pages). |
 | Schema | LocalBusiness + HomeAndConstructionBusiness, Service, OfferCatalog, Person (owner), WebSite, FAQPage, BreadcrumbList, per-town Service. |
 | NAP | Phone (850) 396-2908, Gmail address until Workspace; service-area business, no street address. BBB shows a wrong phone. |

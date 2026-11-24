@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
-import { lastUpdated, siteUrl, towns } from "@/content/site";
+import { siteUrl, towns } from "@/content/site";
 
+// No lastModified: one shared date on every URL told search engines nothing, and a stale one is worse than none.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date(lastUpdated);
   const page = (path: string, priority: number): MetadataRoute.Sitemap[number] => ({
     url: `${siteUrl}${path}`,
-    lastModified,
     changeFrequency: "monthly",
     priority,
   });
